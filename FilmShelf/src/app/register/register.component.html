@@ -1,0 +1,100 @@
+<div class="w-75 margin-auto">
+    <div class="form-container">
+  
+      <h2>Register</h2>
+  
+      <form [formGroup]="registerForm" (ngSubmit)="registerSubmitted()">
+        <div class="form-field flex">
+          <div class="w-25">
+            <label for="personName" class="form-label pt">Person Name</label>
+          </div>
+  
+          <div class="flex-1">
+            <input type="text" id="personName" class="form-input" formControlName="personName" />
+            @if((personNameControl?.touched 
+            || isRegisterFormSubmitted) 
+            && (personNameControl?.errors?.['required'])){
+                <span class="text-red">{{ validationErrorMessages.PERSON_NAME_REQUIRED }}</span>
+            }
+          </div>
+        </div>
+  
+        <div class="form-field flex">
+          <div class="w-25">
+            <label for="email" class="form-label pt">Email</label>
+          </div>
+  
+        <div class="flex-1">
+            <input type="text" id="email" class="form-input" formControlName="email" />
+            @if((emailControl?.touched 
+            || isRegisterFormSubmitted) 
+            && (emailControl?.errors?.['required'])){
+                <span class="text-red">{{ validationErrorMessages.EMAIL_REQUIRED }}</span>
+            }
+            
+            @if((emailControl?.touched 
+            || isRegisterFormSubmitted) 
+            && (emailControl?.errors?.['email'])){
+                <span class="text-red">{{ validationErrorMessages.EMAIL_INVALID }}</span>
+            }
+          </div>
+        </div>
+  
+        <div class="form-field flex">
+          <div class="w-25">
+            <label for="password" class="form-label pt">Password</label>
+          </div>
+  
+          <div class="flex-1">
+            <input type="password" id="password" class="form-input" formControlName="password" />
+            @if((passwordControl?.touched 
+            || isRegisterFormSubmitted) 
+            && (passwordControl?.errors?.['required'])){
+                <span class="text-red">{{ validationErrorMessages.PASSWORD_REQUIRED }}</span>
+            }
+          </div>
+        </div>
+  
+        <div class="form-field flex">
+          <div class="w-25">
+            <label for="confirmationPassword" class="form-label pt">Confirm Password</label>
+          </div>
+  
+          <div class="flex-1">
+            <input type="password" id="confirmationPassword" class="form-input" formControlName="confirmationPassword" />
+            @if((confirmationPasswordControl?.touched 
+            || isRegisterFormSubmitted) 
+            && (confirmationPasswordControl?.errors?.['required'])){
+                <span class="text-red">{{ validationErrorMessages.CONFIRM_PASSWORD_REQUIRED }}</span>
+            }
+            @if((confirmationPasswordControl?.touched 
+            || isRegisterFormSubmitted) 
+            && (confirmationPasswordControl?.errors?.['compareValidator'])){
+                <span class="text-red">{{ validationErrorMessages.PASSWORD_MISMATCH }}</span>
+            }
+          </div>
+        </div>
+  
+        <div class="form-field flex">
+          <div class="w-25">
+          </div>
+  
+          <div class="flex-1">
+            <button 
+              type="submit" 
+              class="button button-green-back" 
+              [disabled]="isRegisterInProgress || !hasFormChanged()">
+              Register
+            </button>
+          </div>
+        </div>
+        
+        @if(errorMessage){
+          <div class="text-red">
+            {{ errorMessage }}
+          </div>
+        }
+      </form>
+  
+    </div>
+  </div>

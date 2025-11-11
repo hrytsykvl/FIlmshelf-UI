@@ -1,0 +1,1 @@
+export const URL_RESET_PASSWORD = "http://localhost:4200/reset";

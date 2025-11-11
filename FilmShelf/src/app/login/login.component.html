@@ -1,0 +1,66 @@
+<div class="w-75 margin-auto">
+    <div class="form-container">
+  
+      <h2>Login</h2>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="loginSubmitted()">
+        <div class="form-field flex">
+          <div class="w-25">
+            <label for="email" class="form-label pt">Email</label>
+          </div>
+  
+        <div class="flex-1">
+            <input type="text" id="email" class="form-input" formControlName="email" />
+            @if((emailControl?.touched 
+            || isLoginFormSubmitted) 
+            && (emailControl?.errors?.['required'])){
+                <span class="text-red">{{ validationErrorMessages.EMAIL_REQUIRED }}</span>
+            }
+            
+            @if((emailControl?.touched 
+            || isLoginFormSubmitted) 
+            && (emailControl?.errors?.['email'])){
+                <span class="text-red">{{ validationErrorMessages.EMAIL_INVALID }}</span>
+            }
+          </div>
+        </div>
+  
+        <div class="form-field flex">
+          <div class="w-25">
+            <label for="password" class="form-label pt">Password</label>
+          </div>
+  
+          <div class="flex-1">
+            <input type="password" id="password" class="form-input" formControlName="password" />
+            @if((passwordControl?.touched 
+            || isLoginFormSubmitted) 
+            && (passwordControl?.errors?.['required'])){
+                <span class="text-red">{{ validationErrorMessages.PASSWORD_REQUIRED }}</span>
+            }
+            <a class="forgot-password" [routerLink]="['/forgot-password']">Forgot Password?</a>
+            
+          </div>
+        </div>
+  
+        <div class="form-field flex">
+          <div class="w-25">
+          </div>
+  
+          <div class="flex-1">
+            <button 
+              type="submit" 
+              class="button button-green-back" 
+              [disabled]="isLoginInProgress || !hasFormChanged()">
+              Login
+          </button>
+          </div>
+        </div>
+        
+        @if(errorMessage){
+          <div class="text-red">
+            {{ errorMessage }}
+          </div>
+        }
+      </form>
+    </div>
+  </div>
