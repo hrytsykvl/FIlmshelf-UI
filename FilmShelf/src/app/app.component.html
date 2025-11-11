@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="page-content">
+    <div class="top-bar">
+      <h2 class="app-title">FilmShelf</h2>
+      <div class="auth-links">
+        <ul>
+          @if(!accountService.isLoggedIn){
+            <li>
+              <a [routerLink]="['/login']">Login</a>
+            </li>
+            <li>
+              <a [routerLink]="['/register']">Register</a>
+            </li>
+          }
+          @if(accountService.isLoggedIn){
+            <li>
+              <a href="#" (click)="onLogOutClicked()">Logout</a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="navbar mb">
+      <ul>
+        <li>
+          <a [routerLink]="['/movies']" routerLinkActive="nav-active">Movies</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="body">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
