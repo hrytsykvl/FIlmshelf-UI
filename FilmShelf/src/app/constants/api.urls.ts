@@ -1,6 +1,7 @@
-export const API_URL_REGISTER = "https://localhost:8081/api/account/register";
-export const API_URL_LOGIN = "https://localhost:8081/api/account/token";
-export const API_URL_TOKEN = "https://localhost:8081/api/account/refresh-token";
-export const API_URL_LOGOUT = "https://localhost:8081/api/account/logout";
-export const API_URL_FORGOT_PASSWORD = "https://localhost:8081/api/account/forgot-password";
-export const API_URL_RESET_PASSWORD = "https://localhost:8081/api/account/reset-password";
+export const API_URL_REGISTER = `${process.env["API_BASE_URL"]}/account/register`;
+export const API_URL_LOGIN = `${process.env["API_BASE_URL"]}/account/token`;
+export const API_URL_TOKEN = `${process.env["API_BASE_URL"]}/account/refresh-token`;
+export const API_URL_LOGOUT = `${process.env["API_BASE_URL"]}/account/logout`;
+export const API_URL_FORGOT_PASSWORD = `${process.env["API_BASE_URL"]}/account/forgot-password`;
+export const API_URL_RESET_PASSWORD = `${process.env["API_BASE_URL"]}/account/reset-password`;
+export const API_URL_MOVIES = `${process.env["API_BASE_URL"]}/movies`;

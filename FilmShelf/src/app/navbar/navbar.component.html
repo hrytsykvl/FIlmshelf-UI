@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <h2 class="app-title">FilmShelf</h2>
+  <ul class="nav-links">
+    <li>
+      <a [routerLink]="['/movies']" routerLinkActive="nav-active">Movies</a>
+    </li>
+    @if(!accountService.isLoggedIn) {
+    <li>
+      <a [routerLink]="['/login']">Login</a>
+    </li>
+    <li>
+      <a [routerLink]="['/register']">Register</a>
+    </li>
+    } @if(accountService.isLoggedIn) {
+    <li>
+      <a href="#" (click)="onLogOutClicked()">Logout</a>
+    </li>
+    }
+  </ul>
+</nav>

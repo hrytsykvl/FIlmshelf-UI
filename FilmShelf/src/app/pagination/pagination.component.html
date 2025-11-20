@@ -1,0 +1,43 @@
+<div class="paginator">
+  <button
+    [disabled]="currentPage() === 1"
+    (click)="goToPage(currentPage() - 1)"
+  >
+    Previous
+  </button>
+
+  <button
+    *ngIf="getVisiblePages()[0] > 1"
+    (click)="goToPage(1)"
+    [class.active]="currentPage() === 1"
+  >
+    1
+  </button>
+
+  <span *ngIf="getVisiblePages()[0] > 2">...</span>
+
+  <button
+    *ngFor="let page of getVisiblePages()"
+    (click)="goToPage(page)"
+    [class.active]="currentPage() === page"
+  >
+    {{ page }}
+  </button>
+
+  <span *ngIf="getVisiblePages().slice(-1)[0] < totalPages() - 1">...</span>
+
+  <button
+    *ngIf="getVisiblePages().slice(-1)[0] < totalPages()"
+    (click)="goToPage(totalPages())"
+    [class.active]="currentPage() === totalPages()"
+  >
+    {{ totalPages() }}
+  </button>
+
+  <button
+    [disabled]="currentPage() === totalPages()"
+    (click)="goToPage(currentPage() + 1)"
+  >
+    Next
+  </button>
+</div>

@@ -1,0 +1,15 @@
+<div class="w-75">
+  <h2 class="title">Movies</h2>
+  <div class="page">
+    <app-movie
+      *ngFor="let movie of page?.movieList"
+      [movie]="movie"
+      (movieClicked)="onMovieClick($event)"
+    ></app-movie>
+  </div>
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages ?? 0"
+    (pageChanged)="onPageChange($event)"
+  ></app-pagination>
+</div>

@@ -1,0 +1,48 @@
+<div class="movie-details-container">
+  <div class="movie-header">
+    <img
+      [src]="movieDetails?.posterPath"
+      alt="{{ movieDetails?.title }}"
+      class="movie-poster"
+    />
+    <div class="movie-info">
+      <h1 class="movie-title">{{ movieDetails?.title }}</h1>
+      <p class="movie-genres">
+        <strong>Genres:</strong> {{ movieDetails?.genres?.join(", ") }}
+      </p>
+      <p class="movie-overview">
+        <strong>Overview:</strong>
+        {{ movieDetails?.overview }}
+      </p>
+      <p class="movie-meta">
+        <span
+          ><strong>Release Date:</strong>
+          {{ movieDetails?.releaseDate | date }}</span
+        >
+        <span><strong>Runtime:</strong> {{ movieDetails?.runtime }} mins</span>
+        <span><strong>Director:</strong> {{ movieDetails?.director }}</span>
+      </p>
+      <p class="movie-rating">
+        <strong>Average Rating:</strong>
+        {{ movieDetails?.averageRating?.toFixed(2) }} / 10
+      </p>
+    </div>
+  </div>
+
+  <div class="movie-cast">
+    <h2>Cast</h2>
+    <div class="cast-list">
+      <div class="cast-member" *ngFor="let member of movieDetails?.cast">
+        <img
+          [src]="member?.profilePath"
+          alt="{{ member?.name }}"
+          class="cast-image"
+        />
+        <div class="cast-info">
+          <p class="cast-name">{{ member?.name }}</p>
+          <p class="cast-character">as {{ member?.character }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
