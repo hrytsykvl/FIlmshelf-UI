@@ -1,0 +1,60 @@
+import { Component, OnInit } from '@angular/core';
+import { MovieListResponse } from '../models/movie-list-response';
+import { MovieService } from '../services/movie.service';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MovieComponent } from "../movie/movie.component";
+import { PaginationComponent } from "../pagination/pagination.component";
+
+@Component({
+  selector: 'app-movies',
+  standalone: true,
+  imports: [CommonModule, MovieComponent, PaginationComponent],
+  templateUrl: './movies.component.html',
+  styleUrl: './movies.component.css'
+})
+export class MoviesComponent implements OnInit {
+  page: MovieListResponse | null = null;
+  currentPage: number = 1;
+  totalPages?: number;
+
+  constructor(
+    private movieService: MovieService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const page = Number(params['page']) || 1;
+      this.currentPage = page;
+      this.loadPage(page);
+    });
+  }
+
+  loadPage(pageNumber: number): void {
+    this.movieService.page(pageNumber).subscribe({
+      next: (response) => {
+        this.page = response;
+        this.currentPage = pageNumber;
+        this.totalPages = response.totalPages;
+
+        this.router.navigate([], {
+          relativeTo: this.activatedRoute,
+          queryParams: {page: pageNumber},
+          queryParamsHandling: 'merge'
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.loadPage(pageNumber);
+  }
+
+  onMovieClick(movieId : number) {
+    this.router.navigate(['/movie', movieId]);
+  }
+}

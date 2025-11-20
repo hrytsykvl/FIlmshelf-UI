@@ -1,0 +1,6 @@
+<div class="movie-item">
+  <div class="movie-link" (click)="onMovieClicked()">
+    <img [src]="movie().posterPath" [alt]="movie().title" />
+    <p class="movie-title">{{ movie().title }}</p>
+  </div>
+</div>

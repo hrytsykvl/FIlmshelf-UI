@@ -1,0 +1,10 @@
+.page-content {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.body {
+  margin-top: 20px;
+}
