@@ -43,29 +43,3 @@
   grid-template-columns: repeat(5, minmax(150px, 1fr));
   gap: 20px;
 }
-
-.cast-member {
-  text-align: center;
-}
-
-.cast-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  object-fit: cover;
-  border: 1px solid #ccc;
-}
-
-.cast-info {
-  font-size: 14px;
-}
-
-.cast-name {
-  font-weight: bold;
-}
-
-.cast-character {
-  font-style: italic;
-  color: #666;
-}

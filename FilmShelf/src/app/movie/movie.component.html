@@ -2,5 +2,8 @@
   <div class="movie-link" (click)="onMovieClicked()">
     <img [src]="movie().posterPath" [alt]="movie().title" />
     <p class="movie-title">{{ movie().title }}</p>
+    @if(role()){
+    <p>Role: {{ role() }}</p>
+    }
   </div>
 </div>

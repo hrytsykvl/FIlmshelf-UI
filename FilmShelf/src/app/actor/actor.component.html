@@ -1,0 +1,11 @@
+<div class="cast-member" (click)="onActorClicked()">
+  <img
+    [src]="actor().profilePath"
+    alt="{{ actor().name }}"
+    class="cast-image"
+  />
+  <div class="cast-info">
+    <p class="cast-name">{{ actor().name }}</p>
+    <p class="cast-character">as {{ actor().character }}</p>
+  </div>
+</div>

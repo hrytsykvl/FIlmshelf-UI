@@ -11,6 +11,7 @@ import { MovieResponse } from '../models/movie-response';
 })
 export class MovieComponent {
   movie = input.required<MovieResponse>();
+  role = input<string>();
   movieClicked = output<number>();
 
   onMovieClicked() {

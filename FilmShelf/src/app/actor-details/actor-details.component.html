@@ -1,0 +1,36 @@
+<div class="actor-details-container">
+  <div class="actor-header">
+    <img
+      [src]="actorDetails?.profilePath"
+      alt="{{ actorDetails?.name }}"
+      class="actor-photo"
+    />
+    <div class="actor-info">
+      <h1 class="actor-name">{{ actorDetails?.name }}</h1>
+      <div class="actor-bio">
+        <strong>Biography:</strong>
+        <span [innerHTML]="formattedBio"></span>
+      </div>
+      <p>
+        <span
+          ><strong>Birth Date:</strong>
+          {{ actorDetails?.birthDate | date }}</span
+        >
+      </p>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="movie-cast">
+    <h2>Movies {{ actorDetails?.name }} star in</h2>
+    <div class="movie-list">
+      <app-movie
+        *ngFor="let movie of actorDetails?.movies"
+        [movie]="movie"
+        [role]="movie.role"
+        (movieClicked)="onMovieClick($event)"
+      ></app-movie>
+    </div>
+  </div>
+</div>
