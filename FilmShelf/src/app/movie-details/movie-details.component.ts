@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../services/movie.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieDetailsResponse } from '../models/movie-details-response';
 import { CommonModule } from '@angular/common';
+import { ActorComponent } from "../actor/actor.component";
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ActorComponent],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
 })
 export class MovieDetailsComponent implements OnInit{
   movieDetails: MovieDetailsResponse | null = null;
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private movieService: MovieService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -25,5 +29,9 @@ export class MovieDetailsComponent implements OnInit{
         }
       });
     });
+  }
+
+  onActorClick(actorId: number) {
+    this.router.navigate(['/actor', actorId]);
   }
 }

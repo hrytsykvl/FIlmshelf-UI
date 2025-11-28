@@ -32,17 +32,11 @@
   <div class="movie-cast">
     <h2>Cast</h2>
     <div class="cast-list">
-      <div class="cast-member" *ngFor="let member of movieDetails?.cast">
-        <img
-          [src]="member?.profilePath"
-          alt="{{ member?.name }}"
-          class="cast-image"
-        />
-        <div class="cast-info">
-          <p class="cast-name">{{ member?.name }}</p>
-          <p class="cast-character">as {{ member?.character }}</p>
-        </div>
-      </div>
+      <app-actor
+        *ngFor="let actor of movieDetails?.cast"
+        [actor]="actor"
+        (actorClicked)="onActorClick($event)"
+      ></app-actor>
     </div>
   </div>
 </div>

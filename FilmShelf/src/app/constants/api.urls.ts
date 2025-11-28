@@ -5,3 +5,4 @@ export const API_URL_LOGOUT = `${process.env["API_BASE_URL"]}/account/logout`;
 export const API_URL_FORGOT_PASSWORD = `${process.env["API_BASE_URL"]}/account/forgot-password`;
 export const API_URL_RESET_PASSWORD = `${process.env["API_BASE_URL"]}/account/reset-password`;
 export const API_URL_MOVIES = `${process.env["API_BASE_URL"]}/movies`;
+export const API_URL_ACTORS = `${process.env["API_BASE_URL"]}/actors`;
