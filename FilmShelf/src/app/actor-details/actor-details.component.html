@@ -28,6 +28,7 @@
       <app-movie
         *ngFor="let movie of actorDetails?.movies"
         [movie]="movie"
+        [inWatchlist]="movieWatchlistStatus[movie.id]"
         [role]="movie.role"
         (movieClicked)="onMovieClick($event)"
       ></app-movie>

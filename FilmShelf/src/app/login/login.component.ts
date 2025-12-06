@@ -1,16 +1,26 @@
 import { Component } from '@angular/core';
-import { AbstractControl, Form, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  Form,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { ERROR_MESSAGES } from '../constants/error-messages';
+import { WatchlistService } from '../services/watchlist.service';
+import { saveAuthTokens } from '../helpers/auth-helper';
+import { DEFAULT_WATCHLIST_ID_KEY, WATCHLIST_KEY } from '../constants/constants';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -20,24 +30,30 @@ export class LoginComponent {
   validationErrorMessages = ERROR_MESSAGES;
   lastAttemptedData: any = null;
 
-  constructor(private accountService: AccountService, private router: Router){
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private watchlistService: WatchlistService
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
     });
   }
 
-  get emailControl() : FormControl | null {
-    return this.loginForm.controls["email"] as FormControl;
+  get emailControl(): FormControl | null {
+    return this.loginForm.controls['email'] as FormControl;
   }
 
-  get passwordControl() : FormControl | null {
-    return this.loginForm.controls["password"] as FormControl;
+  get passwordControl(): FormControl | null {
+    return this.loginForm.controls['password'] as FormControl;
   }
 
   hasFormChanged(): boolean {
     const currentFormData = this.loginForm.value;
-    return JSON.stringify(currentFormData) !== JSON.stringify(this.lastAttemptedData);
+    return (
+      JSON.stringify(currentFormData) !== JSON.stringify(this.lastAttemptedData)
+    );
   }
 
   loginSubmitted() {
@@ -47,23 +63,36 @@ export class LoginComponent {
     if (!this.hasFormChanged()) {
       return;
     }
-    
-    if(this.loginForm.valid){
+
+    if (this.loginForm.valid) {
       this.isLoginInProgress = true;
       this.lastAttemptedData = this.loginForm.value;
 
-      this.accountService.login(this.loginForm.value)
-      .subscribe({
+      this.accountService.login(this.loginForm.value).subscribe({
         next: (response: AuthenticationResponse) => {
           this.isLoginFormSubmitted = false;
           this.isLoginInProgress = false;
-          this.accountService.isLoggedIn = true;
 
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("refreshToken", response.refreshToken);
-          localStorage.setItem("refreshTokenExpirationDate", response.refreshTokenExpirationDate.toString());
+          saveAuthTokens(
+            response.token, 
+            response.refreshToken, 
+            response.refreshTokenExpirationDate
+          );
 
-          this.router.navigate([ '/movies' ]);
+          this.watchlistService.checkDefaultWatchlistMovies().subscribe({
+            next: (response) => {
+              localStorage.setItem(
+                WATCHLIST_KEY,
+                JSON.stringify(response.movieIds)
+              );
+              localStorage.setItem(
+                DEFAULT_WATCHLIST_ID_KEY,
+                JSON.stringify(response.watchlistId)
+              );
+            },
+          });
+
+          this.router.navigate(['/movies']);
           this.loginForm.reset();
           this.lastAttemptedData = null;
         },
@@ -71,7 +100,7 @@ export class LoginComponent {
         error: (error) => {
           this.errorMessage = error.message;
           this.isLoginInProgress = false;
-        }
+        },
       });
     } else {
       this.lastAttemptedData = this.loginForm.value;

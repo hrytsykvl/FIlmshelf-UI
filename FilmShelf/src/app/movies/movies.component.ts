@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieComponent } from "../movie/movie.component";
 import { PaginationComponent } from "../pagination/pagination.component";
+import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
 
 @Component({
   selector: 'app-movies',
@@ -17,6 +18,7 @@ export class MoviesComponent implements OnInit {
   page: MovieListResponse | null = null;
   currentPage: number = 1;
   totalPages?: number;
+  movieWatchlistStatus: { [key: number]: boolean } = {};
 
   constructor(
     private movieService: MovieService,
@@ -37,6 +39,10 @@ export class MoviesComponent implements OnInit {
         this.page = response;
         this.currentPage = pageNumber;
         this.totalPages = response.totalPages;
+
+        this.movieWatchlistStatus = checkMoviesInWatchlist(
+          this.page.movieList.map(movie => movie.id)
+        );
 
         this.router.navigate([], {
           relativeTo: this.activatedRoute,

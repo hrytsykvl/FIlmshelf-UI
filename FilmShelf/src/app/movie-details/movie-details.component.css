@@ -29,6 +29,38 @@
   flex-direction: column;
 }
 
+.watchlist-button {
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  font-size: 16px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.watchlist-button:hover {
+  transform: scale(1.05);
+}
+
+.in-watchlist {
+  background-color: #28a745;
+}
+
+.in-watchlist:hover {
+  background-color: #218838;
+}
+
+.not-in-watchlist {
+  background-color: #218838;
+}
+
+.not-in-watchlist:hover {
+  background-color: #37b24d;
+}
+
 .movie-cast {
   margin-top: 40px;
 }

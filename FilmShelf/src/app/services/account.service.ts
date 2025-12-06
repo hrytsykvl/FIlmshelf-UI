@@ -1,23 +1,43 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterUser } from '../models/register-user';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, Subject, throwError } from 'rxjs';
 import { LoginUser } from '../models/login-user';
 import { AuthenticationResponse } from '../models/authentication-response';
-import { API_URL_FORGOT_PASSWORD, API_URL_LOGIN, API_URL_LOGOUT, API_URL_REGISTER, API_URL_RESET_PASSWORD, API_URL_TOKEN } from '../constants/api.urls';
-import { LogoutUser } from '../models/logout-user';
+import { 
+  API_URL_FORGOT_PASSWORD, 
+  API_URL_LOGIN, API_URL_LOGOUT, 
+  API_URL_REGISTER, 
+  API_URL_RESET_PASSWORD, 
+  API_URL_TOKEN
+} from '../constants/api.urls';
 import { PasswordResponse } from '../models/password-response';
 import { ResetPassword } from '../models/reset-password';
 import { ForgotPassword } from '../models/forgot-password';
+import { saveAuthTokens } from '../helpers/auth-helper';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  public isLoggedIn: boolean | null = null;
+  get isLoggedIn(): boolean {
+    return localStorage.getItem("refreshToken") !== null;
+  }
 
-  constructor(private httpClient: HttpClient) { }
+  public $refreshToken = new Subject<boolean>;
+  public $refreshTokenExpired = new Subject<boolean>();
+
+  constructor(private httpClient: HttpClient) {
+    this.$refreshToken.subscribe(() => {
+      this.generateNewAccessToken()
+    });
+
+    this.$refreshTokenExpired.subscribe(() => {
+      this.logout();
+      localStorage.clear();
+    });
+   }
 
   public register(registerUser: RegisterUser): Observable<AuthenticationResponse> {
     return this.httpClient.post<AuthenticationResponse>(API_URL_REGISTER, registerUser).pipe(
@@ -43,19 +63,27 @@ export class AccountService {
     );
   }
 
-  public logout(logoutUser: LogoutUser): Observable<void> {
-    return this.httpClient.post<void>(API_URL_LOGOUT, logoutUser).pipe(
-      catchError(this.handleError)
-    );
+  public logout() {
+    const refreshToken = localStorage["refreshToken"];
+    return this.httpClient.post(API_URL_LOGOUT, {refreshToken: refreshToken});
   } 
 
-  public generateNewToken(): Observable<AuthenticationResponse> {
+  public generateNewAccessToken() {
     const token = localStorage["token"];
     const refreshToken = localStorage["refreshToken"];
+    const refreshRequest = {
+      token: token,
+      refreshToken: refreshToken
+    }
 
-    return this.httpClient.post<AuthenticationResponse>(API_URL_TOKEN, { token: token, refreshToken: refreshToken}).pipe(
-      catchError(this.handleError)
-    );
+    this.httpClient.post<AuthenticationResponse>(API_URL_TOKEN, refreshRequest)
+      .subscribe((response: AuthenticationResponse) => {
+        saveAuthTokens(
+          response.token, 
+          response.refreshToken, 
+          response.refreshTokenExpirationDate
+        );
+    });
   }
 
   private handleError(error: HttpErrorResponse) {

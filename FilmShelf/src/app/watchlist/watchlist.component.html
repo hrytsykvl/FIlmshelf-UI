@@ -1,0 +1,23 @@
+<div class="user-watchlist">
+  <h2>{{watchlist()?.title}}</h2>
+  <p class="last-added">
+    Last Added: {{ watchlist()?.updatedAt | date : "medium" }}
+  </p>
+  <div class="sort-figure">
+    <p class="total-titles">{{ watchlist()?.totalMovies }} titles</p>
+    <select class="sort-options" (change)="sortMovies($event)">
+      <option value="default" disabled selected>Sort by...</option>
+      <option value="title">Title</option>
+      <option value="averageRating">Rating</option>
+    </select>
+  </div>
+  <div class="watchlist">
+    <app-movie
+      *ngFor="let movie of sortedMovies"
+      [movie]="movie"
+      [rating]="+movie.averageRating.toFixed(2)"
+      [inWatchlist]="true"
+      (movieClicked)="onMovieClick($event)"
+    ></app-movie>
+  </div>
+</div>

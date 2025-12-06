@@ -6,6 +6,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { MoviesComponent } from './movies/movies.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { ActorDetailsComponent } from './actor-details/actor-details.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 export const routes: Routes = [
     { path: "register", component: RegisterComponent},
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: "movies", component: MoviesComponent },
     { path: "movie/:id", component: MovieDetailsComponent },
     { path: "actor/:id", component: ActorDetailsComponent },
+    { path: "watchlist", component: WatchlistComponent},
     { path: "**", redirectTo: "" }
 ];

@@ -4,6 +4,7 @@
     <app-movie
       *ngFor="let movie of page?.movieList"
       [movie]="movie"
+      [inWatchlist]="movieWatchlistStatus[movie.id] || false"
       (movieClicked)="onMovieClick($event)"
     ></app-movie>
   </div>
