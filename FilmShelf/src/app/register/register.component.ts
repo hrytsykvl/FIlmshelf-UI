@@ -1,17 +1,26 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { CompareValidation } from '../validators/custom-validator';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { ERROR_MESSAGES } from '../constants/error-messages';
+import { WatchlistService } from '../services/watchlist.service';
+import { saveAuthTokens } from '../helpers/auth-helper';
+import { DEFAULT_WATCHLIST_ID_KEY, WATCHLIST_KEY } from '../constants/constants';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -21,37 +30,45 @@ export class RegisterComponent {
   validationErrorMessages = ERROR_MESSAGES;
   lastAttemptedData: any = null;
 
-  constructor(private accountService: AccountService, private router: Router){
-    this.registerForm = new FormGroup({
-      personName: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required]),
-      confirmationPassword: new FormControl(null, [Validators.required]),
-    },
+  constructor(
+    private accountService: AccountService,
+    private watchlistService: WatchlistService,
+    private router: Router
+  ) {
+    this.registerForm = new FormGroup(
       {
-        validators: [CompareValidation("password", "confirmationPassword")]
-      });
+        personName: new FormControl(null, [Validators.required]),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        password: new FormControl(null, [Validators.required]),
+        confirmationPassword: new FormControl(null, [Validators.required]),
+      },
+      {
+        validators: [CompareValidation('password', 'confirmationPassword')],
+      }
+    );
   }
 
-  get personNameControl() : FormControl | null {
-    return this.registerForm.controls["personName"] as FormControl;
+  get personNameControl(): FormControl | null {
+    return this.registerForm.controls['personName'] as FormControl;
   }
 
-  get emailControl() : FormControl | null {
-    return this.registerForm.controls["email"] as FormControl;
+  get emailControl(): FormControl | null {
+    return this.registerForm.controls['email'] as FormControl;
   }
 
-  get passwordControl() : FormControl | null {
-    return this.registerForm.controls["password"] as FormControl;
+  get passwordControl(): FormControl | null {
+    return this.registerForm.controls['password'] as FormControl;
   }
 
-  get confirmationPasswordControl() : FormControl | null {
-    return this.registerForm.controls["confirmationPassword"] as FormControl;
+  get confirmationPasswordControl(): FormControl | null {
+    return this.registerForm.controls['confirmationPassword'] as FormControl;
   }
 
   hasFormChanged(): boolean {
     const currentFormData = this.registerForm.value;
-    return JSON.stringify(currentFormData) !== JSON.stringify(this.lastAttemptedData);
+    return (
+      JSON.stringify(currentFormData) !== JSON.stringify(this.lastAttemptedData)
+    );
   }
 
   registerSubmitted() {
@@ -62,7 +79,7 @@ export class RegisterComponent {
       return;
     }
 
-    if(this.registerForm.valid){
+    if (this.registerForm.valid) {
       this.isRegisterInProgress = true;
       this.lastAttemptedData = this.registerForm.value;
 
@@ -70,20 +87,34 @@ export class RegisterComponent {
         next: (response: AuthenticationResponse) => {
           this.isRegisterFormSubmitted = false;
           this.isRegisterInProgress = false;
-          this.accountService.isLoggedIn = true;
 
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("refreshToken", response.refreshToken);
-          localStorage.setItem("refreshTokenExpirationDate", response.refreshTokenExpirationDate.toString());
+          saveAuthTokens(
+            response.token, 
+            response.refreshToken, 
+            response.refreshTokenExpirationDate
+          );
 
-          this.router.navigate([ '/movies' ]);
+          this.watchlistService.checkDefaultWatchlistMovies().subscribe({
+            next: (response) => {
+              localStorage.setItem(
+                WATCHLIST_KEY,
+                JSON.stringify(response.movieIds)
+              );
+              localStorage.setItem(
+                DEFAULT_WATCHLIST_ID_KEY,
+                JSON.stringify(response.watchlistId)
+              );
+            },
+          });
+
+          this.router.navigate(['/movies']);
           this.registerForm.reset();
           this.lastAttemptedData = null;
         },
         error: (error) => {
           this.errorMessage = error.message;
           this.isRegisterInProgress = false;
-        }
+        },
       });
     } else {
       this.lastAttemptedData = this.registerForm.value;

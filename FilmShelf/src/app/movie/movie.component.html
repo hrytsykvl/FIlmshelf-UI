@@ -1,9 +1,28 @@
 <div class="movie-item">
+  @if(inWatchlist){
+  <button class="in-watchlist" (click)="removeFromWatchlist(movie().id)">
+    ✓
+  </button>
+  } @else {
+  <button
+    class="add-to-watchlist"
+    [routerLink]="['/movie', movie().id]"
+    [queryParams]="{ triggerWatchlist: true }"
+  >
+    +
+  </button>
+  }
+
   <div class="movie-link" (click)="onMovieClicked()">
     <img [src]="movie().posterPath" [alt]="movie().title" />
     <p class="movie-title">{{ movie().title }}</p>
     @if(role()){
     <p>Role: {{ role() }}</p>
+    } @if(rating()){
+    <div class="rating">
+      <star-solid-icon class="star-icon" />
+      <p>{{ rating() }}</p>
+    </div>
     }
   </div>
 </div>

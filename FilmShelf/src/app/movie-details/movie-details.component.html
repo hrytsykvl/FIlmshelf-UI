@@ -26,6 +26,20 @@
         <strong>Average Rating:</strong>
         {{ movieDetails?.averageRating?.toFixed(2) }} / 10
       </p>
+      <div
+        class="watchlist-button"
+        (click)="toggleWatchlist()"
+        [class.in-watchlist]="inWatchlist"
+        [class.not-in-watchlist]="!inWatchlist"
+      >
+        @if(inWatchlist){
+        <check-outline-icon />
+        <p>In watchlist</p>
+        } @else {
+        <plus-outline-icon />
+        <p>Add to Watchlist</p>
+        }
+      </div>
     </div>
   </div>
 
