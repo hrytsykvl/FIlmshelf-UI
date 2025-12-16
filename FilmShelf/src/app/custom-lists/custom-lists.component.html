@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="header">
+    <h2 class="title">Your Lists</h2>
+
+    <button class="create-button" [routerLink]="['/create-list']">
+      Create List
+    </button>
+  </div>
+
+  <hr class="separator" />
+
+  <div class="lists-container">
+    <app-custom-list
+      *ngFor="let list of userLists"
+      [watchlistId]="list.watchlistId"
+      [title]="list.title"
+      [movieIds]="list.movieIds"
+      (deleteClicked)="onDeleteWatchlist($event)"
+    >
+    </app-custom-list>
+  </div>
+</div>

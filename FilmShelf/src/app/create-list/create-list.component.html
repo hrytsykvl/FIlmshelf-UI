@@ -1,0 +1,16 @@
+<div class="form-container">
+  <h2>Create New Watchlist</h2>
+
+  <form [formGroup]="newListForm" (ngSubmit)="addNewList()">
+    <label class="form-label" for="newListTitle">New Watchlist Title</label>
+    <input
+      id="newListTitle"
+      class="form-input"
+      formControlName="title"
+      maxlength="100"
+      placeholder="Enter list title"
+    />
+
+    <button class="create-button" type="submit" [disabled]="newListForm.invalid">Add List</button>
+  </form>
+</div>

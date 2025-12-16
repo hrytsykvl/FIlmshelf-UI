@@ -13,7 +13,10 @@ import { AuthenticationResponse } from '../models/authentication-response';
 import { ERROR_MESSAGES } from '../constants/error-messages';
 import { WatchlistService } from '../services/watchlist.service';
 import { saveAuthTokens } from '../helpers/auth-helper';
-import { DEFAULT_WATCHLIST_ID_KEY, WATCHLIST_KEY } from '../constants/constants';
+import {
+  DEFAULT_WATCHLIST_ID_KEY,
+  WATCHLIST_KEY,
+} from '../constants/constants';
 
 @Component({
   selector: 'app-register',
@@ -89,20 +92,20 @@ export class RegisterComponent {
           this.isRegisterInProgress = false;
 
           saveAuthTokens(
-            response.token, 
-            response.refreshToken, 
+            response.token,
+            response.refreshToken,
             response.refreshTokenExpirationDate
           );
 
-          this.watchlistService.checkDefaultWatchlistMovies().subscribe({
+          this.watchlistService.checkWatchlistsMovies().subscribe({
             next: (response) => {
               localStorage.setItem(
                 WATCHLIST_KEY,
-                JSON.stringify(response.movieIds)
+                JSON.stringify(response)
               );
               localStorage.setItem(
                 DEFAULT_WATCHLIST_ID_KEY,
-                JSON.stringify(response.watchlistId)
+                JSON.stringify(response[0].watchlistId)
               );
             },
           });

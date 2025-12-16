@@ -1,0 +1,46 @@
+<div class="user-watchlist">
+  <div class="watchlist-header">
+    <h2 *ngIf="!isEditingTitle">{{ watchlist()?.title }}</h2>
+    <input
+      *ngIf="isEditingTitle"
+      type="text"
+      [(ngModel)]="newTitle"
+      class="edit-title-input"
+      maxlength="100"
+    />
+    <button
+      *ngIf="!isEditingTitle"
+      class="edit-title-button"
+      (click)="enableTitleEdit()"
+    >
+      Edit Title
+    </button>
+    <div *ngIf="isEditingTitle" class="edit-title-actions">
+      <button
+        class="save-title-button"
+        (click)="saveTitle()"
+        [disabled]="newTitle === watchlist()?.title"
+      >
+        Save
+      </button>
+      <button class="cancel-title-button" (click)="cancelTitleEdit()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <p class="last-added">
+    Last Added: {{ watchlist()?.updatedAt | date : "medium" }}
+  </p>
+  <p class="total-titles">{{ watchlist()?.totalMovies }} titles</p>
+  <div class="watchlist">
+    <app-movie
+      *ngFor="let movie of watchlist()?.movies"
+      [movie]="movie"
+      [rating]="+movie.averageRating.toFixed(2)"
+      [inWatchlist]="movieWatchlistStatus[movie.id]"
+      [watchlistId]="watchlist()?.id"
+      (movieClicked)="onMovieClick($event)"
+      (movieRemoved)="onMovieRemoved($event)"
+    ></app-movie>
+  </div>
+</div>

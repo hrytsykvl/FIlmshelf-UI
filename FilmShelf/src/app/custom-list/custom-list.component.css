@@ -1,0 +1,62 @@
+.custom-list {
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.poster-container {
+  margin-right: 15px;
+}
+
+.movie-poster {
+  width: 80px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.movie-poster:hover {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  filter: brightness(0.6);
+}
+
+.meta-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.title:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #343a40;
+}
+
+.meta-container p {
+  margin-top: 5px;
+  color: #555;
+  font-size: 0.9em;
+}
+
+.placeholder-img {
+  border-radius: 8px;
+}
+
+.delete-icon:hover {
+  cursor: pointer;
+  color: #ff6f61;
+  transition: all 0.3s ease;
+}
