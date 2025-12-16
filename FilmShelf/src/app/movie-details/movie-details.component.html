@@ -26,19 +26,43 @@
         <strong>Average Rating:</strong>
         {{ movieDetails?.averageRating?.toFixed(2) }} / 10
       </p>
-      <div
-        class="watchlist-button"
-        (click)="toggleWatchlist()"
-        [class.in-watchlist]="inWatchlist"
-        [class.not-in-watchlist]="!inWatchlist"
-      >
-        @if(inWatchlist){
-        <check-outline-icon />
-        <p>In watchlist</p>
-        } @else {
-        <plus-outline-icon />
-        <p>Add to Watchlist</p>
-        }
+      <div class="list-buttons">
+        <div
+          class="watchlist-button"
+          (click)="toggleWatchlist()"
+          [class.in-watchlist]="inWatchlist"
+          [class.not-in-watchlist]="!inWatchlist"
+        >
+          @if(inWatchlist){
+          <check-outline-icon />
+          <p>In watchlist</p>
+          } @else {
+          <plus-outline-icon />
+          <p>Add to Watchlist</p>
+          }
+        </div>
+        <div class="add-to-list-container">
+          <button class="add-to-list-button" (click)="toggleListDropdown()">
+            Add to List
+          </button>
+          <ul *ngIf="showListDropdown" class="list-dropdown">
+            <li [routerLink]="['/create-list']">
+              <p>Create new list</p>
+              <chevron-right-outline-icon />
+            </li>
+            <li
+              *ngFor="let list of userLists"
+              (click)="toggleMovieInList(list.watchlistId)"
+            >
+              @if(list.movieIds.includes(movieId)){
+              <check-outline-icon />
+              } @else {
+              <plus-outline-icon />
+              }
+              {{ list.title }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

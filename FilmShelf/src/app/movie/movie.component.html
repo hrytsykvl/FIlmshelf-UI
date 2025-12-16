@@ -25,4 +25,12 @@
     </div>
     }
   </div>
+  @if(watchlistId()) {
+  <button
+    class="delete-button"
+    (click)="removeFromWatchlist(movie().id, watchlistId())"
+  >
+    <trash-solid-icon />
+  </button>
+  }
 </div>
