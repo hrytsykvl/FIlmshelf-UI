@@ -1,0 +1,140 @@
+<div class="review" [class.highlight]="highlight()">
+  <div class="reviewer">
+    <img
+      class="reviewer-avatar"
+      src="https://eu.ui-avatars.com/api/?name={{ review().userName }}&size=250"
+    />
+    <p>{{ review().userName }}</p>
+    <p class="date">{{ review().createdAt | date }}</p>
+  </div>
+  <div class="rating">
+    @if(isYourReview()){
+    <div class="review-actions">
+      <button class="button edit-button" (click)="editReview()">
+        <span>Edit</span>
+        <pencil-square-outline-icon />
+      </button>
+      <button class="button delete-button" (click)="deleteReview()">
+        <trash-outline-icon />
+      </button>
+    </div>
+    }
+    <div *ngIf="isEditing; else viewMode">
+      <form [formGroup]="editReviewForm" (ngSubmit)="saveReview()">
+        <textarea
+          class="edit-content"
+          formControlName="content"
+          placeholder="Edit your review"
+        ></textarea>
+        <div class="edit-rating-stars">
+          <span
+            *ngFor="let star of starsArray(10); let i = index"
+            class="star"
+            [class.filled]="i < editReviewForm.value.rating"
+            (click)="setRating(i + 1)"
+          >
+            ★
+          </span>
+        </div>
+        <div class="edit-review-actions">
+          <button
+            class="button save-button"
+            type="submit"
+            [disabled]="!isFormChanged()"
+          >
+            Save
+          </button>
+          <button
+            class="button cancel-button"
+            type="button"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <ng-template #viewMode>
+      <p>{{ review().rating }}/10</p>
+      <div class="rating-stars">
+        <span
+          *ngFor="let star of starsArray(review().rating); let i = index"
+          class="star"
+          [class.filled]="i < review().rating"
+        >
+          ★
+        </span>
+      </div>
+      <p class="review-content">{{ review().content }}</p>
+    </ng-template>
+    @if(!isYourReview()){
+    <div class="reply-button" (click)="toggleReplyForm()">
+      <paper-airplane-outline-icon />
+      <span>Reply</span>
+    </div>
+    }
+    <div
+      class="responses-toggle"
+      *ngIf="review().responses.length > 0"
+      (click)="toggleResponses()"
+    >
+      <chat-bubble-bottom-center-text-outline-icon />
+      @if(showResponses){
+      <span>Hide Responses</span>
+      <chevron-right-outline-icon />
+      }@else {
+      <span>Show Responses ({{ review().responses.length }})</span>
+      <chevron-down-outline-icon />
+      }
+    </div>
+    <div class="reply-form" *ngIf="showReplyForm">
+      <form [formGroup]="replyForm" (submit)="submitReply()">
+        <label for="reply-content">Reply:</label>
+        <textarea
+          id="reply-content"
+          formControlName="content"
+          rows="4"
+          placeholder="Write your reply here..."
+        ></textarea>
+        <button
+          class="submit-button"
+          type="submit"
+          [disabled]="replyForm.invalid"
+        >
+          Submit Reply
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="responses" *ngIf="showResponses">
+    <h3>Responses</h3>
+    <div
+      *ngFor="let response of review().responses"
+      class="response"
+      [class.highlight]="response.userId === userId()"
+    >
+      <div class="response-user-info">
+        <div class="response-user">
+          <img
+            class="reviewer-avatar"
+            src="https://eu.ui-avatars.com/api/?name={{
+              response.userName
+            }}&size=250"
+          />
+          <p class="response-user">{{ response.userName }}</p>
+          <p class="response-date">{{ response.createdAt | date }}</p>
+        </div>
+        @if(response.userId === userId()){
+        <button
+          class="button delete-button"
+          (click)="deleteResponse(response.id)"
+        >
+          <trash-outline-icon></trash-outline-icon>
+        </button>
+        }
+      </div>
+      <p class="response-content">{{ response.content }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+.review {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-container label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.sort-options {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.sort-options:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.movie-title-link {
+  text-decoration: none;
+  color: #099268;
+  font-size: 19px;
+}
+
+.movie-title-link:hover {
+  text-decoration: underline;
+}
+
+.review-date,
+.review-content,
+.review-rating,
+.reviewer-name {
+  margin: 10px 0;
+}
+
+.review-date {
+  color: #666;
+  font-size: 14px;
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.review-rating .star {
+  font-size: 16px;
+  color: #ccc;
+}
+
+.review-rating .star.filled {
+  color: #f5a623;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rating-stars .star {
+  font-size: 24px;
+  cursor: pointer;
+  color: #ccc;
+  margin-right: 5px;
+}
+
+.rating-stars .star.selected {
+  color: #f5a623;
+}
+
+.rating-stars .star,
+.rating-stars .star:hover ~ .star {
+  color: #222;
+  text-shadow: none;
+  transition: color 200ms, text-shadow 200ms;
+  transition-delay: 0;
+}
+
+.rating-stars:hover .star {
+  color: #fc0;
+  text-shadow: #fc0 0 0 20px;
+}
+
+.edit-form {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fefefe;
+}
+
+.edit-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+.edit-review-button,
+.delete-review-button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-review-button {
+  background-color: #37b24d;
+}
+
+.delete-review-button {
+  background-color: #ff6b6b;
+}
+
+.edit-review-button:hover {
+  background-color: #2f9e44;
+}
+
+.delete-review-button:hover {
+  background-color: #f03e3e;
+}
+
+.save-review-button {
+  background-color: #2f9e44;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-review-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.save-review-button:hover {
+  background-color: #37b24d;
+}
+
+.edit-review-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.cancel-review-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-review-button:hover {
+  background-color: #f03e3e;
+}

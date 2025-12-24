@@ -10,18 +10,29 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
 import { CustomListsComponent } from './custom-lists/custom-lists.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import { CustomListDetailsComponent } from './custom-list-details/custom-list-details.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { MovieContentComponent } from './movie-content/movie-content.component';
+import { UserReviewsComponent } from './user-reviews/user-reviews.component';
 
 export const routes: Routes = [
-    { path: "register", component: RegisterComponent},
-    { path: "login", component: LoginComponent},
-    { path: "forgot-password", component: ForgotPasswordComponent},
-    { path: "reset", component: ResetPasswordComponent },
-    { path: "movies", component: MoviesComponent },
-    { path: "movie/:id", component: MovieDetailsComponent },
-    { path: "actor/:id", component: ActorDetailsComponent },
-    { path: "watchlist", component: WatchlistComponent},
-    { path: "lists", component: CustomListsComponent },
-    { path: "list/:id", component: CustomListDetailsComponent },
-    { path: "create-list", component: CreateListComponent },
-    { path: "**", redirectTo: "" }
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset', component: ResetPasswordComponent },
+  { path: 'movies', component: MoviesComponent },
+  {
+    path: 'movie/:id',
+    component: MovieContentComponent,
+    children: [
+      { path: '', component: MovieDetailsComponent },
+      { path: 'reviews', component: ReviewsComponent },
+    ],
+  },
+  { path: 'actor/:id', component: ActorDetailsComponent },
+  { path: 'watchlist', component: WatchlistComponent },
+  { path: 'lists', component: CustomListsComponent },
+  { path: 'list/:id', component: CustomListDetailsComponent },
+  { path: 'create-list', component: CreateListComponent },
+  { path: 'reviews', component: UserReviewsComponent },
+  { path: '**', redirectTo: '' },
 ];

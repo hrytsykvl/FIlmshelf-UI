@@ -16,7 +16,6 @@ import { ResetPassword } from '../models/reset-password';
 import { ForgotPassword } from '../models/forgot-password';
 import { saveAuthTokens } from '../helpers/auth-helper';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +36,7 @@ export class AccountService {
       this.logout();
       localStorage.clear();
     });
-   }
+  }
 
   public register(registerUser: RegisterUser): Observable<AuthenticationResponse> {
     return this.httpClient.post<AuthenticationResponse>(API_URL_REGISTER, registerUser).pipe(
