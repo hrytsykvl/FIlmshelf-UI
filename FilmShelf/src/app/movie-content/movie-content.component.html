@@ -1,0 +1,12 @@
+<div class="tabs">
+  <a
+    routerLink="./"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Movie</a
+  >
+  <a routerLink="reviews" routerLinkActive="active">Reviews</a>
+</div>
+<div class="movie-content-container">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,270 @@
+.review {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.review.highlight {
+  background-color: #eaf7e3;
+  border: 2px solid #28a745;
+  box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2);
+}
+
+.date {
+  font-size: 12px;
+  color: #777;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.review-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.review-actions .button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  color: #fff;
+  width: fit-content;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button.edit-button {
+  background-color: #37b24d;
+}
+
+.button.edit-button:hover {
+  background-color: #2b8a3e;
+}
+
+.button.delete-button {
+  background-color: #f03e3e;
+}
+
+.button.delete-button:hover {
+  background-color: #c92a2a;
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px 15px 15px;
+}
+
+.rating p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.rating-stars .star {
+  font-size: 16px;
+  color: #ccc;
+}
+
+.rating-stars .star.filled {
+  color: #f5a623;
+}
+
+.edit-rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.edit-rating-stars .star {
+  font-size: 20px;
+  cursor: pointer;
+  color: #ccc;
+  margin-right: 5px;
+}
+
+.edit-rating-stars .star.filled {
+  color: #f5a623;
+}
+
+.edit-rating-stars .star,
+.edit-rating-stars .star:hover ~ .star {
+  color: #222;
+  text-shadow: none;
+  transition: color 200ms, text-shadow 200ms;
+  transition-delay: 0;
+}
+
+.edit-rating-stars:hover .star {
+  color: #fc0;
+  text-shadow: #fc0 0 0 20px;
+}
+
+.button {
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button.save-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button.save-button {
+  background-color: #0ca678;
+}
+
+.button.save-button:hover:not(:disabled) {
+  background-color: #087f5b;
+}
+
+.button.cancel-button {
+  background-color: #e03131;
+}
+
+.button.cancel-button:hover {
+  background-color: #c92a2a;
+}
+
+.edit-content {
+  width: 50%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.edit-review-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.reply-button {
+  background-color: #1098ad;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.reply-button:hover {
+  background-color: #0c8599;
+  transition: all 0.3s ease;
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+}
+
+.reply-form .submit-button {
+  background-color: #0ca678;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reply-form .submit-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.reply-form .submit-button:hover {
+  background-color: #087f5b;
+  transition: all 0.3s ease;
+}
+
+.responses {
+  margin-left: 20px;
+  border: 2px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.response {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background-color: #f9f9f9;
+}
+
+.response.highlight {
+  background-color: #e9ecef;
+  border: 2px solid #339af0;
+  box-shadow: 0 4px 8px rgba(51, 154, 240, 0.2);
+}
+
+.response-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.response-user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.response-content {
+  font-size: 14px;
+}
+
+.response-date {
+  font-size: 12px;
+  color: #666;
+}
+
+.responses-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #0b7285;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.responses-toggle:hover {
+  text-decoration: underline;
+}

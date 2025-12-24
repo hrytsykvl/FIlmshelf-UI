@@ -1,0 +1,65 @@
+<div class="reviews-container">
+  <h2>My Reviews</h2>
+  <div class="sort-container">
+    <label for="sortOptions">Sort by:</label>
+    <select
+      id="sortOptions"
+      (change)="onSortChange($event)"
+      class="sort-options"
+      [value]="currentSort"
+    >
+      <option value="title">Movie Title</option>
+      <option value="rating">User Rating</option>
+      <option value="date">Date Reviewed</option>
+    </select>
+  </div>
+  <div *ngFor="let review of reviews" class="review">
+    <h3>
+      <a [routerLink]="['/movie', review.movieId]" class="movie-title-link">
+        {{ review.movieTitle }}
+      </a>
+    </h3>
+    <p class="review-date">
+      <strong>Date Reviewed:</strong> {{ review.createdAt | date : "medium" }}
+    </p>
+    <p class="review-content"><strong>Review:</strong> {{ review.content }}</p>
+    <p class="review-rating">
+      <strong>Rating ({{ review.rating }}/10):</strong>
+      <ng-container *ngFor="let star of stars; let index = index">
+        <i class="star" [class.filled]="index < review.rating">★</i>
+      </ng-container>
+    </p>
+    <div class="review-actions">
+      <button (click)="toggleEditReviewForm(review)" class="edit-review-button">
+        Edit Review
+      </button>
+      <button (click)="deleteReview(review.id)" class="delete-review-button">
+        Delete Review
+      </button>
+    </div>
+    <div *ngIf="editingReview?.id === review.id" class="edit-form">
+      <textarea [(ngModel)]="editingReview!.content" rows="3"></textarea>
+      <div class="rating-stars">
+        <label for="rating">Rating:</label>
+        <div>
+          <ng-container *ngFor="let star of stars; let index = index">
+            <i
+              class="star"
+              [class.selected]="editingReview!.rating > index"
+              (click)="setEditRating(index + 1)"
+              >★</i
+            >
+          </ng-container>
+        </div>
+      </div>
+      <div class="edit-review-actions">
+        <button (click)="updateReview()" class="save-review-button">
+          Save
+        </button>
+        <button (click)="cancelEdit()" class="cancel-review-button">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

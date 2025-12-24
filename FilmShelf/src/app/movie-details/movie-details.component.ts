@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../services/movie.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { MovieDetailsResponse } from '../models/movie-details-response';
 import { CommonModule } from '@angular/common';
 import { ActorComponent } from '../actor/actor.component';
@@ -19,7 +24,13 @@ import {
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [CommonModule, ActorComponent, NgHeroiconsModule, RouterLink],
+  imports: [
+    CommonModule,
+    ActorComponent,
+    NgHeroiconsModule,
+    RouterLink,
+    RouterOutlet,
+  ],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css',
 })
@@ -80,14 +91,22 @@ export class MovieDetailsComponent implements OnInit {
       this.watchlistService.removeMovieFromWatchlist(this.movieId).subscribe({
         next: () => {
           this.inWatchlist = false;
-          updateMovieInWatchlist(this.movieId, this.inWatchlist, defaultWatchlistId);
+          updateMovieInWatchlist(
+            this.movieId,
+            this.inWatchlist,
+            defaultWatchlistId
+          );
         },
       });
     } else {
       this.watchlistService.addMovieToWatchlist(this.movieId).subscribe({
         next: () => {
           this.inWatchlist = true;
-          updateMovieInWatchlist(this.movieId, this.inWatchlist, defaultWatchlistId);
+          updateMovieInWatchlist(
+            this.movieId,
+            this.inWatchlist,
+            defaultWatchlistId
+          );
         },
       });
     }
@@ -98,7 +117,7 @@ export class MovieDetailsComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    
+
     this.showListDropdown = !this.showListDropdown;
   }
 
@@ -117,29 +136,28 @@ export class MovieDetailsComponent implements OnInit {
     const list = this.userLists.find(
       (list) => list.watchlistId === watchlistId
     );
-  
+
     if (list) {
       const isMovieInList = list.movieIds.includes(this.movieId);
-  
+
       if (isMovieInList) {
         const index = list.movieIds.indexOf(this.movieId);
         list.movieIds.splice(index, 1);
         updateMovieInWatchlist(this.movieId, false, watchlistId);
-  
+
         this.watchlistService
           .removeMovieFromWatchlist(this.movieId, watchlistId)
           .subscribe();
       } else {
         list.movieIds.push(this.movieId);
         updateMovieInWatchlist(this.movieId, true, watchlistId);
-  
+
         this.watchlistService
           .addMovieToWatchlist(this.movieId, watchlistId)
           .subscribe();
       }
     }
   }
-  
 
   onActorClick(actorId: number) {
     this.router.navigate(['/actor', actorId]);

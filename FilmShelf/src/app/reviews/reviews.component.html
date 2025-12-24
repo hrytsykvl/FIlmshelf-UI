@@ -1,0 +1,63 @@
+<div class="reviews-container">
+  <div class="reviews-header">
+    <h1>Reviews</h1>
+    <div>
+      <button
+        class="add-review-button"
+        (click)="toggleReviewForm()"
+        [disabled]="hasReviewed"
+      >
+        Add Review
+      </button>
+      <p *ngIf="hasReviewed" class="reviewed-message">
+        You have already reviewed this movie
+      </p>
+    </div>
+  </div>
+
+  <div class="add-review-form" *ngIf="showReviewForm">
+    <form [formGroup]="reviewForm" (submit)="submitReview()">
+      <label for="content">Review Content:</label>
+      <textarea
+        id="content"
+        formControlName="content"
+        rows="4"
+        placeholder="Write your review here..."
+      ></textarea>
+      <div class="rating-stars">
+        <label for="rating">Rating:</label>
+        <div>
+          <ng-container *ngFor="let star of stars; let index = index">
+            <i
+              class="star"
+              [class.selected]="reviewForm.get('rating')?.value > index"
+              (click)="setRating(index + 1)"
+            >
+              ★
+            </i>
+          </ng-container>
+        </div>
+      </div>
+      <button
+        class="submit-button"
+        type="submit"
+        [disabled]="reviewForm.invalid"
+      >
+        Submit Review
+      </button>
+    </form>
+  </div>
+  <div class="reviews-list">
+    @if(reviews.length === 0) {
+      <p>No reviews yet</p>
+      }
+    <app-review
+      *ngFor="let review of reviews"
+      [review]="review"
+      [highlight]="isUserReview(review)"
+      [isYourReview]="review.userId === userId"
+      [userId]="userId!"
+      (onDelete)="deleteReview($event)"
+    ></app-review>
+  </div>
+</div>

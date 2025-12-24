@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import {
   REFRESH_TOKEN_EXPIRATION_KEY,
   REFRESH_TOKEN_KEY,
@@ -15,4 +16,13 @@ export function saveAuthTokens(
     REFRESH_TOKEN_EXPIRATION_KEY,
     refreshTokenExpirationDate.toString()
   );
+}
+
+export function getUserIdFromToken(jwtHelper: JwtHelperService): number | null {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!token) return null;
+
+  const decodedToken = jwtHelper.decodeToken(token);
+
+  return decodedToken.sub ? parseInt(decodedToken.sub, 10) : null;
 }

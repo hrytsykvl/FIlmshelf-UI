@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AccountService } from '../services/account.service';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { getUserIdFromToken } from '../helpers/auth-helper';
 
 @Component({
   selector: 'app-navbar',
