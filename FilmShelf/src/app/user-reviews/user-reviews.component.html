@@ -20,7 +20,7 @@
       </a>
     </h3>
     <p class="review-date">
-      <strong>Date Reviewed:</strong> {{ review.createdAt | date : "medium" }}
+      <strong>Date Reviewed:</strong> {{ review.createdAt + "Z" | date : "medium" }}
     </p>
     <p class="review-content"><strong>Review:</strong> {{ review.content }}</p>
     <p class="review-rating">

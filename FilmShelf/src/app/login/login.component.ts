@@ -17,6 +17,8 @@ import {
   DEFAULT_WATCHLIST_ID_KEY,
   WATCHLIST_KEY,
 } from '../constants/constants';
+import { SignalRService } from '../services/signal-r.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +38,8 @@ export class LoginComponent {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private watchlistService: WatchlistService
+    private watchlistService: WatchlistService,
+    private appComponent: AppComponent
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -84,10 +87,7 @@ export class LoginComponent {
 
           this.watchlistService.checkWatchlistsMovies().subscribe({
             next: (response) => {
-              localStorage.setItem(
-                WATCHLIST_KEY,
-                JSON.stringify(response)
-              );
+              localStorage.setItem(WATCHLIST_KEY, JSON.stringify(response));
               localStorage.setItem(
                 DEFAULT_WATCHLIST_ID_KEY,
                 JSON.stringify(response[0].watchlistId)
@@ -95,9 +95,10 @@ export class LoginComponent {
             },
           });
 
-          this.router.navigate(['/movies']);
+          this.router.navigate(['/movies'], { replaceUrl: true });
           this.loginForm.reset();
           this.lastAttemptedData = null;
+          this.appComponent.initializeNotifications(true);
         },
 
         error: (error) => {

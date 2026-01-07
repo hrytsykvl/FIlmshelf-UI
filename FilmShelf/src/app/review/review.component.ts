@@ -1,4 +1,10 @@
-import { Component, input, output } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  input,
+  OnInit,
+  output,
+} from '@angular/core';
 import { Review } from '../models/review';
 import { CommonModule } from '@angular/common';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
@@ -11,6 +17,7 @@ import {
 import { ReviewService } from '../services/review.service';
 import { ReviewResponseAddRequest } from '../models/review-response-add-request';
 import { UpdateReviewRequest } from '../models/update-review-request';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-review',
@@ -19,7 +26,7 @@ import { UpdateReviewRequest } from '../models/update-review-request';
   templateUrl: './review.component.html',
   styleUrl: './review.component.css',
 })
-export class ReviewComponent {
+export class ReviewComponent implements OnInit, AfterViewChecked {
   review = input.required<Review>();
   highlight = input<boolean>(false);
   isYourReview = input<boolean>(false);
@@ -30,8 +37,14 @@ export class ReviewComponent {
   editReviewForm: FormGroup;
   isEditing = false;
   onDelete = output<number>();
+  highlightResponse: boolean = false;
+  highlightedResponseId: number | null = null;
 
-  constructor(private fb: FormBuilder, private reviewService: ReviewService) {
+  constructor(
+    private fb: FormBuilder,
+    private reviewService: ReviewService,
+    private route: ActivatedRoute
+  ) {
     this.replyForm = this.fb.group({
       content: ['', [Validators.required, Validators.maxLength(1000)]],
     });
@@ -40,6 +53,29 @@ export class ReviewComponent {
       content: ['', [Validators.required, Validators.maxLength(1000)]],
       rating: [0, [Validators.required, Validators.min(1), Validators.max(10)]],
     });
+  }
+
+  ngOnInit(): void {
+    const reviewId = this.route.snapshot.queryParams['reviewId'];
+    const fragment = this.route.snapshot.fragment;
+
+    if (reviewId && this.review().id === parseInt(reviewId, 10)) {
+      if (fragment && fragment.startsWith('response-')) {
+        this.showResponses = true;
+        const responseId = fragment.split('-')[1];
+        this.highlightedResponseId = parseInt(responseId, 10);
+      }
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    const fragment = this.route.snapshot.fragment;
+    if (fragment) {
+      const element = document.getElementById(fragment);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   }
 
   starsArray(rating: number): number[] {
@@ -120,6 +156,9 @@ export class ReviewComponent {
         this.review().responses = this.review().responses.filter(
           (r) => r.id !== responseId
         );
+        if (this.review().responses.length === 0) {
+          this.showResponses = false;
+        }
       });
     }
   }

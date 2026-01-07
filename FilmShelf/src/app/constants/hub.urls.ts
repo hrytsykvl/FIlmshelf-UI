@@ -1,0 +1,1 @@
+export const HUB_NOTIFICATION_URL = `${process.env['BASE_URL']}/notification`;

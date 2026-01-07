@@ -29,7 +29,7 @@
     </div>
   </div>
   <p class="last-added">
-    Last Added: {{ watchlist()?.updatedAt | date : "medium" }}
+    Last Added: {{ watchlist()?.updatedAt + "Z" | date : "medium" }}
   </p>
   <p class="total-titles">{{ watchlist()?.totalMovies }} titles</p>
   <div class="watchlist">

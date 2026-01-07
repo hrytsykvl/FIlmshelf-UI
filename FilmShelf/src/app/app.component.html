@@ -1,5 +1,33 @@
 <div class="container">
-  <app-navbar></app-navbar>
+  <app-navbar
+    [unreadNotificationsCount]="unreadNotificationsCount"
+    (countDecrement)="onCountDecrement()"
+    (countDelete)="onCountDelete()"
+  ></app-navbar>
+  <div class="notification-container">
+    <div
+      *ngFor="let notification of notifications; let i = index"
+      class="notification"
+      [class.fade-out]="isFading(i)"
+      (click)="onNotificationClicked(notification)"
+    >
+      <img class="movie-poster" [src]="notification.moviePoster" />
+      <div class="notification-content">
+        <p>
+          <b>{{ notification.reviewResponse.userName }}</b> responded to your
+          review on <b>{{ notification.movieTitle }}</b
+          >:
+          <br />
+          {{ notification.reviewResponse.content | slice : 0 : 100 }}
+          <span *ngIf="notification.reviewResponse.content.length > 100"
+            >...</span>
+        </p>
+      </div>
+      <button class="close-btn" (click)="removeNotification(i, $event)">
+        <x-mark-outline-icon />
+      </button>
+    </div>
+  </div>
   <div class="page-content">
     <div class="body">
       <router-outlet></router-outlet>

@@ -18,6 +18,33 @@
         Watchlist
       </a>
     </li>
+    <li class="notification-section">
+      <bell-solid-icon class="bell-icon" (click)="toggleNotificationMenu()" />
+      <div class="notification-badge" *ngIf="unreadNotificationsCount() > 0">
+        {{ unreadNotificationsCount() }}
+      </div>
+
+      <div class="notification-menu" *ngIf="isNotificationMenuVisible">
+        <div class="notification-menu-header">
+          <h3>Notifications</h3>
+          @if(unreadNotificationsCount() > 0) {
+          <button class="clear-button" (click)="deleteAllNotifications()">
+            Clear all
+            <archive-box-solid-icon />
+          </button>
+          }
+        </div>
+        <app-notification
+          class="notification"
+          *ngFor="let notification of notifications"
+          [ngClass]="{ unread: !notification.isRead }"
+          (notificationClicked)="onNotificationClicked($event)"
+          (notificationDeleted)="onNotificationDeleted($event)"
+          (notificationRead)="onNotificationRead($event)"
+          [notification]="notification"
+        ></app-notification>
+      </div>
+    </li>
     <li class="dropdown">
       <user-circle-solid-icon class="user-icon" />
 

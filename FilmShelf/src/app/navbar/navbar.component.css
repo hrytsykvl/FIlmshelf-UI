@@ -85,6 +85,7 @@
 .dropdown:hover {
   background-color: #69db7c;
   transition: all 0.3s ease;
+  border-radius: 16px;
 }
 
 .watchlist {
@@ -94,4 +95,115 @@
 
 .bookmark-icon {
   color: #fff;
+}
+
+.notification-section {
+  position: relative;
+}
+
+.notification-section:hover {
+  background-color: #69db7c;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+}
+
+.bell-icon {
+  color: #fff;
+  cursor: pointer;
+}
+
+.notification {
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.notification-menu {
+  position: absolute;
+  border-radius: 16px;
+  right: 0;
+  background-color: #f1f1f1;
+  min-width: 320px;
+  max-width: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  padding: 10px;
+}
+
+.notification-menu h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.notification-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.clear-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: inherit;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-button:hover {
+  background-color: #0056b3;
+}
+
+.notification {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+}
+
+.notification:last-child {
+  margin-bottom: 0;
+}
+
+.notification:hover {
+  background-color: #eaeaea;
+}
+
+.notification.unread {
+  border-left: 4px solid #007bff;
+  background-color: #eef6ff;
+}
+
+.notification.unread:hover {
+  background-color: #d9e9ff;
 }

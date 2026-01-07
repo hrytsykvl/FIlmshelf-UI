@@ -234,6 +234,21 @@
   box-shadow: 0 4px 8px rgba(51, 154, 240, 0.2);
 }
 
+.response.notification-highlight {
+  background-color: #dbeafe;
+  border: 1px solid #bfdbfe;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(191, 219, 254, 0.8),
+    0 0 30px rgba(59, 130, 246, 0.6);
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.response.notification-highlight:hover {
+  box-shadow: 0 0 25px rgba(191, 219, 254, 1), 0 0 50px rgba(59, 130, 246, 0.8);
+  background-color: #eff6ff;
+}
+
 .response-user {
   display: flex;
   align-items: center;
