@@ -1,7 +1,7 @@
 <div class="user-watchlist">
   <h2>{{watchlist()?.title}}</h2>
   <p class="last-added">
-    Last Added: {{ watchlist()?.updatedAt | date : "medium" }}
+    Last Added: {{ watchlist()?.updatedAt + "Z" | date : "medium" }}
   </p>
   <div class="sort-figure">
     <p class="total-titles">{{ watchlist()?.totalMovies }} titles</p>

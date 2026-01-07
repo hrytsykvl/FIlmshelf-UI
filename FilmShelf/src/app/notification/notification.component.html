@@ -1,0 +1,24 @@
+<div class="notification-item" (click)="onNotificationClicked()">
+  <p class="notification-content">
+    <b>{{ notification().reviewResponse.userName }}</b>
+    responded to your review on <b>{{ notification().movieTitle }}:</b>
+    <br />
+    {{ notification().reviewResponse.content | slice : 0 : 100 }}
+    @if(notification().reviewResponse.content.length > 100){ ... }
+  </p>
+  <div class="notification-footer">
+    <p class="notification-time">
+      {{ notification().createdAt + "Z" | date : "short" }}
+    </p>
+    <div class="notification-actions">
+      @if(!notification().isRead){
+      <button class="button mark-as-read-button" (click)="markAsRead($event)">
+        <book-open-outline-icon></book-open-outline-icon>
+      </button>
+      }
+      <button class="button delete-button" (click)="deleteNotification($event)">
+        <trash-outline-icon></trash-outline-icon>
+      </button>
+    </div>
+  </div>
+</div>

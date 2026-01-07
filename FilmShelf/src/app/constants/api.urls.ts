@@ -9,3 +9,4 @@ export const API_URL_MOVIES = `${process.env['API_BASE_URL']}/movie`;
 export const API_URL_ACTORS = `${process.env['API_BASE_URL']}/actor`;
 export const API_URL_WATCHLIST = `${process.env['API_BASE_URL']}/watchlist`;
 export const API_URL_REVIEWS = `${process.env['API_BASE_URL']}/review`;
+export const API_URL_NOTIFICATIONS = `${process.env['API_BASE_URL']}/notification`;

@@ -17,6 +17,7 @@ import {
   DEFAULT_WATCHLIST_ID_KEY,
   WATCHLIST_KEY,
 } from '../constants/constants';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +37,8 @@ export class RegisterComponent {
   constructor(
     private accountService: AccountService,
     private watchlistService: WatchlistService,
-    private router: Router
+    private router: Router,
+    private appComponent: AppComponent
   ) {
     this.registerForm = new FormGroup(
       {
@@ -113,6 +115,7 @@ export class RegisterComponent {
           this.router.navigate(['/movies']);
           this.registerForm.reset();
           this.lastAttemptedData = null;
+          this.appComponent.initializeNotifications(true);
         },
         error: (error) => {
           this.errorMessage = error.message;

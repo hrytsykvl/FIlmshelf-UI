@@ -113,6 +113,8 @@
       *ngFor="let response of review().responses"
       class="response"
       [class.highlight]="response.userId === userId()"
+      [class.notification-highlight]="response.id === highlightedResponseId"
+      [id]="'response-' + response.id"
     >
       <div class="response-user-info">
         <div class="response-user">
