@@ -3,6 +3,8 @@ import * as signalR from '@microsoft/signalr';
 import { Observable } from 'rxjs';
 import { TOKEN_KEY } from '../constants/constants';
 import { HUB_NOTIFICATION_URL } from '../constants/hub.urls';
+import { CustomNotification } from '../models/custom-notification';
+import { MovieNotification } from '../models/movie-notification';
 
 @Injectable({
   providedIn: 'root',
@@ -28,11 +30,25 @@ export class SignalRService {
       });
   }
 
-  public addNotificationListener(): Observable<any> {
+  public addNotificationListener(): Observable<CustomNotification> {
     return new Observable((observer) => {
-      this.hubConnection.on('ReceiveNotification', (message: string) => {
-        observer.next(message);
-      });
+      this.hubConnection.on(
+        'ReceiveNotification',
+        (message: CustomNotification) => {
+          observer.next(message);
+        }
+      );
+    });
+  }
+
+  public addMovieNotificationListener(): Observable<MovieNotification> {
+    return new Observable((observer) => {
+      this.hubConnection.on(
+        'ReceiveMovieNotification',
+        (message: MovieNotification) => {
+          observer.next(message);
+        }
+      );
     });
   }
 

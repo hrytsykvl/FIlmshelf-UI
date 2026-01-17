@@ -4,10 +4,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SignalRService } from './services/signal-r.service';
 import { CommonModule } from '@angular/common';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
-import { ReviewNotification } from './models/review-notification';
+import { CustomNotification } from './models/custom-notification';
 import { NotificationService } from './services/notification.service';
 import { AccountService } from './services/account.service';
 import { TOKEN_KEY } from './constants/constants';
+import { MovieNotification } from './models/movie-notification';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ import { TOKEN_KEY } from './constants/constants';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'FilmShelf';
-  notifications: ReviewNotification[] = [];
+  notifications: CustomNotification[] = [];
+  movieNotifications: MovieNotification[] = [];
   unreadNotificationsCount = 0;
   fadingNotifications: Set<number> = new Set();
 
@@ -50,6 +52,17 @@ export class AppComponent implements OnInit, OnDestroy {
         .addNotificationListener()
         .subscribe((notification) => {
           this.notifications.push(notification);
+          this.unreadNotificationsCount++;
+          this.playNotificationSound();
+
+          const index = this.notifications.length - 1;
+          this.autoRemoveNotification(index);
+        });
+
+      this.signalRService
+        .addMovieNotificationListener()
+        .subscribe((notification) => {
+          this.movieNotifications.push(notification);
           this.unreadNotificationsCount++;
           this.playNotificationSound();
 
@@ -89,13 +102,26 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeMovieNotification(index: number, event?: Event): void {
+    event?.stopPropagation();
+
+    if (index >= 0) {
+      this.fadingNotifications.add(index);
+
+      setTimeout(() => {
+        this.movieNotifications.splice(index, 1);
+        this.fadingNotifications.delete(index);
+      }, 1000);
+    }
+  }
+
   autoRemoveNotification(index: number): void {
     setTimeout(() => {
       this.removeNotification(index);
     }, 5000);
   }
 
-  onNotificationClicked(notification: ReviewNotification) {
+  onNotificationClicked(notification: CustomNotification) {
     this.notificationService.markNotificationAsRead(notification.id).subscribe({
       next: () => {
         this.notifications = this.notifications.filter(
@@ -103,8 +129,8 @@ export class AppComponent implements OnInit, OnDestroy {
         );
         this.onCountDecrement();
         this.router.navigate(['/movie', notification.movieId, 'reviews'], {
-          queryParams: { reviewId: notification.reviewResponse.reviewId },
-          fragment: 'response-' + notification.reviewResponse.id,
+          queryParams: { reviewId: notification.reviewResponse!.reviewId },
+          fragment: `response-${notification.reviewResponse!.id}`,
         });
       },
     });

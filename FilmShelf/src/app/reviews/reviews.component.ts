@@ -13,6 +13,8 @@ import {
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { TOKEN_KEY } from '../constants/constants';
 import { getUserIdFromToken } from '../helpers/auth-helper';
+import { CONFIRM_MESSAGES } from '../constants/messages';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-reviews',
@@ -29,8 +31,10 @@ export class ReviewsComponent implements OnInit {
   movieId!: number;
   userId: number | null = null;
   hasReviewed = false;
+  isLoggedIn = false;
 
   constructor(
+    private accountService: AccountService,
     private fb: FormBuilder,
     private reviewService: ReviewService,
     private route: ActivatedRoute,
@@ -43,6 +47,8 @@ export class ReviewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.accountService.isLoggedIn;
+    
     this.userId = getUserIdFromToken(this.jwtHelper);
 
     this.route.parent?.paramMap.subscribe((params) => {
@@ -84,7 +90,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   deleteReview(reviewId: number): void {
-    if (confirm('Are you sure you want to delete this review?')) {
+    if (confirm(CONFIRM_MESSAGES.DELETE_REVIEW_CONFIRM)) {
       this.reviewService.deleteReview(reviewId).subscribe(() => {
         this.reviews = this.reviews.filter((r) => r.id !== reviewId);
         this.hasReviewed = false;

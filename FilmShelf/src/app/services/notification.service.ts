@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ReviewNotification } from '../models/review-notification';
+import { CustomNotification } from '../models/custom-notification';
 import { API_URL_NOTIFICATIONS } from '../constants/api.urls';
 
 @Injectable({
@@ -10,8 +10,8 @@ import { API_URL_NOTIFICATIONS } from '../constants/api.urls';
 export class NotificationService {
   constructor(private httpClient: HttpClient) {}
 
-  public retrieveReviewNotifications(): Observable<ReviewNotification[]> {
-    return this.httpClient.get<ReviewNotification[]>(
+  public retrieveReviewNotifications(): Observable<CustomNotification[]> {
+    return this.httpClient.get<CustomNotification[]>(
       `${API_URL_NOTIFICATIONS}`
     );
   }

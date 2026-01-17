@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { updateMovieInWatchlist } from '../helpers/watchlist-helper';
 import { DEFAULT_WATCHLIST_ID_KEY } from '../constants/constants';
+import { CONFIRM_MESSAGES } from '../constants/messages';
 
 @Component({
   selector: 'app-movie',
@@ -33,7 +34,7 @@ export class MovieComponent {
 
   removeFromWatchlist(movieId: number, watchlistId?: number) {
     if (this.watchlistId()){
-      const isConfirmed = confirm('Are you sure you want to delete this movie?');
+      const isConfirmed = confirm(CONFIRM_MESSAGES.DELETE_MOVIE_CONFIRM);
       if (!isConfirmed) {
         return;
       }

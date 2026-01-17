@@ -68,7 +68,7 @@
       </div>
       <p class="review-content">{{ review().content }}</p>
     </ng-template>
-    @if(!isYourReview()){
+    @if(!isYourReview() && isLoggedIn()){
     <div class="reply-button" (click)="toggleReplyForm()">
       <paper-airplane-outline-icon />
       <span>Reply</span>

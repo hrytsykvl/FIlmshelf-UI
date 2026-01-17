@@ -1,0 +1,16 @@
+<div class="w-75">
+  <h2 class="title">Popular Movies</h2>
+  <div class="page">
+    <div
+      *ngFor="let movie of movies?.movieList; let i = index"
+      class="movie-item"
+    >
+      <span class="movie-number">{{ i + 1 }}</span>
+      <app-movie
+        [movie]="movie"
+        [inWatchlist]="movieWatchlistStatus[movie.id] || false"
+        (movieClicked)="onMovieClick($event)"
+      ></app-movie>
+    </div>
+  </div>
+</div>

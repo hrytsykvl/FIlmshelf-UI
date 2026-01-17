@@ -1,7 +1,8 @@
 import { Component, input, output } from '@angular/core';
-import { ReviewNotification } from '../models/review-notification';
+import { CustomNotification } from '../models/custom-notification';
 import { CommonModule } from '@angular/common';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -11,13 +12,17 @@ import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
   styleUrl: './notification.component.css',
 })
 export class NotificationComponent {
-  notification = input.required<ReviewNotification>();
-  notificationClicked = output<ReviewNotification>();
-  notificationDeleted = output<ReviewNotification>();
-  notificationRead = output<ReviewNotification>();
+  notification = input.required<CustomNotification>();
+  notificationClicked = output<CustomNotification>();
+  notificationDeleted = output<CustomNotification>();
+  notificationRead = output<CustomNotification>();
+
+  constructor(private router: Router) {}
 
   onNotificationClicked() {
-    this.notificationClicked.emit(this.notification());
+    this.notification().movieId
+      ? this.notificationClicked.emit(this.notification())
+      : this.router.navigate(['/movies/popular']);
   }
 
   deleteNotification(event: Event) {

@@ -2,6 +2,11 @@
   <h2 class="app-title">FilmShelf</h2>
   <ul class="nav-links">
     <li>
+      <a [routerLink]="['/movies/popular']" routerLinkActive="nav-active">
+        Popular
+      </a>
+    </li>
+    <li>
       <a [routerLink]="['/movies']" routerLinkActive="nav-active">Movies</a>
     </li>
     @if(!accountService.isLoggedIn) {
@@ -38,9 +43,9 @@
           class="notification"
           *ngFor="let notification of notifications"
           [ngClass]="{ unread: !notification.isRead }"
-          (notificationClicked)="onNotificationClicked($event)"
-          (notificationDeleted)="onNotificationDeleted($event)"
-          (notificationRead)="onNotificationRead($event)"
+          (notificationClicked)="onNotificationClicked(notification)"
+          (notificationDeleted)="onNotificationDeleted(notification)"
+          (notificationRead)="onNotificationRead(notification)"
           [notification]="notification"
         ></app-notification>
       </div>

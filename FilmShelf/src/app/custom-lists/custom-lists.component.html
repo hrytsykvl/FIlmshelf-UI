@@ -15,7 +15,7 @@
       [watchlistId]="list.watchlistId"
       [title]="list.title"
       [movieIds]="list.movieIds"
-      (deleteClicked)="onDeleteWatchlist($event)"
+      (deleteClicked)="onDeleteWatchlist(list.watchlistId)"
     >
     </app-custom-list>
   </div>

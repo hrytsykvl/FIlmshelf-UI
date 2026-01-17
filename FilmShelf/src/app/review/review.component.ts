@@ -18,6 +18,7 @@ import { ReviewService } from '../services/review.service';
 import { ReviewResponseAddRequest } from '../models/review-response-add-request';
 import { UpdateReviewRequest } from '../models/update-review-request';
 import { ActivatedRoute } from '@angular/router';
+import { CONFIRM_MESSAGES } from '../constants/messages';
 
 @Component({
   selector: 'app-review',
@@ -30,6 +31,7 @@ export class ReviewComponent implements OnInit, AfterViewChecked {
   review = input.required<Review>();
   highlight = input<boolean>(false);
   isYourReview = input<boolean>(false);
+  isLoggedIn = input<boolean>(false);
   userId = input<number>();
   showReplyForm: boolean = false;
   showResponses: boolean = false;
@@ -151,7 +153,7 @@ export class ReviewComponent implements OnInit, AfterViewChecked {
   }
 
   deleteResponse(responseId: number) {
-    if (confirm('Are you sure you want to delete this response?')) {
+    if (confirm(CONFIRM_MESSAGES.DELETE_RESPONSE_CONFIRM)) {
       this.reviewService.deleteReviewResponse(responseId).subscribe(() => {
         this.review().responses = this.review().responses.filter(
           (r) => r.id !== responseId

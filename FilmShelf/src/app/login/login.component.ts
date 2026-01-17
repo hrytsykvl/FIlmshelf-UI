@@ -10,7 +10,7 @@ import {
 import { AccountService } from '../services/account.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationResponse } from '../models/authentication-response';
-import { ERROR_MESSAGES } from '../constants/error-messages';
+import { ERROR_MESSAGES } from '../constants/messages';
 import { WatchlistService } from '../services/watchlist.service';
 import { saveAuthTokens } from '../helpers/auth-helper';
 import {

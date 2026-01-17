@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UpdateReviewRequest } from '../models/update-review-request';
+import { CONFIRM_MESSAGES } from '../constants/messages';
 
 @Component({
   selector: 'app-user-reviews',
@@ -70,7 +71,7 @@ export class UserReviewsComponent implements OnInit {
   }
 
   deleteReview(reviewId: number): void {
-    if (confirm('Are you sure you want to delete this review?')) {
+    if (confirm(CONFIRM_MESSAGES.DELETE_REVIEW_CONFIRM)) {
       this.reviewService.deleteReview(reviewId).subscribe(() => {
         this.reviews = this.reviews.filter((review) => review.id !== reviewId);
       });
@@ -81,7 +82,7 @@ export class UserReviewsComponent implements OnInit {
     const criteria = (event.target as HTMLSelectElement).value;
     this.currentSort = criteria;
     this.sortReviews(criteria);
-    
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { sort: criteria },
