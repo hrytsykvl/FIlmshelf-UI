@@ -39,8 +39,8 @@
       [rating]="+movie.averageRating.toFixed(2)"
       [inWatchlist]="movieWatchlistStatus[movie.id]"
       [watchlistId]="watchlist()?.id"
-      (movieClicked)="onMovieClick($event)"
-      (movieRemoved)="onMovieRemoved($event)"
+      (movieClicked)="onMovieClick(movie.id)"
+      (movieRemoved)="onMovieRemoved(movie.id)"
     ></app-movie>
   </div>
 </div>

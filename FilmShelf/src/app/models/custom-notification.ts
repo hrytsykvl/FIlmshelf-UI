@@ -1,14 +1,14 @@
 import { ReviewResponse } from './review-response';
 
-export class ReviewNotification {
+export class CustomNotification {
   id: number;
   createdAt: Date;
   isRead: boolean;
   userId: number;
-  movieId: number;
-  movieTitle: string;
-  moviePoster: string;
-  reviewResponse: ReviewResponse;
+  movieId?: number;
+  movieTitle?: string;
+  moviePoster?: string;
+  reviewResponse?: ReviewResponse;
 
   constructor(
     id: number,

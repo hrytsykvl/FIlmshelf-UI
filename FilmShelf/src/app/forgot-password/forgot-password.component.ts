@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { ForgotPassword } from '../models/forgot-password';
 import { PasswordResponse } from '../models/password-response';
 import { URL_RESET_PASSWORD } from '../constants/reset-password.url';
-import { ERROR_MESSAGES } from '../constants/error-messages';
+import { ERROR_MESSAGES } from '../constants/messages';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+  styleUrl: './forgot-password.component.css',
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm: FormGroup;
@@ -27,28 +32,27 @@ export class ForgotPasswordComponent {
     });
   }
 
-  get emailControl() : FormControl | null {
-    return this.forgotPasswordForm.controls["email"] as FormControl;
+  get emailControl(): FormControl | null {
+    return this.forgotPasswordForm.controls['email'] as FormControl;
   }
 
   onSubmit() {
     this.isSubmitted = true;
 
-    if(this.forgotPasswordForm.valid){
+    if (this.forgotPasswordForm.valid) {
       const forgotPassword: ForgotPassword = {
         email: this.forgotPasswordForm.value.email,
-        resetPasswordUrl: URL_RESET_PASSWORD
+        resetPasswordUrl: URL_RESET_PASSWORD,
       };
 
-      this.accountService.forgotPassword(forgotPassword)
-        .subscribe({
-          next: (response: PasswordResponse) => {
-            this.message = response.message
-          },
-          error: (error) => {
-            this.errorMessage = error.message;
-          }
-        });
+      this.accountService.forgotPassword(forgotPassword).subscribe({
+        next: (response: PasswordResponse) => {
+          this.message = response.message;
+        },
+        error: (error) => {
+          this.errorMessage = error.message;
+        },
+      });
     }
   }
 }

@@ -5,11 +5,14 @@
       <button
         class="add-review-button"
         (click)="toggleReviewForm()"
-        [disabled]="hasReviewed"
+        [disabled]="!isLoggedIn || hasReviewed"
       >
         Add Review
       </button>
-      <p *ngIf="hasReviewed" class="reviewed-message">
+      <p *ngIf="!isLoggedIn" class="message">
+        Please log in to leave a review.
+      </p>
+      <p *ngIf="hasReviewed" class="message">
         You have already reviewed this movie
       </p>
     </div>
@@ -56,6 +59,7 @@
       [review]="review"
       [highlight]="isUserReview(review)"
       [isYourReview]="review.userId === userId"
+      [isLoggedIn]="isLoggedIn"
       [userId]="userId!"
       (onDelete)="deleteReview($event)"
     ></app-review>

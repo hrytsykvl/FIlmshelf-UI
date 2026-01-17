@@ -3,6 +3,7 @@ import { MovieService } from '../services/movie.service';
 import { CommonModule } from '@angular/common';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { RouterLink } from '@angular/router';
+import { CONFIRM_MESSAGES } from '../constants/messages';
 
 @Component({
   selector: 'app-custom-list',
@@ -31,7 +32,7 @@ export class CustomListComponent implements OnInit {
   }
 
   onDeleteClicked() {
-    const isConfirmed = confirm('Are you sure you want to delete this list?');
+    const isConfirmed = confirm(CONFIRM_MESSAGES.DELETE_LIST_CONFIRM);
     if (isConfirmed) {
       this.deleteClicked.emit(this.watchlistId());
     }

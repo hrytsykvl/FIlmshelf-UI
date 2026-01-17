@@ -4,7 +4,7 @@ import { AccountService } from '../services/account.service';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../services/notification.service';
-import { ReviewNotification } from '../models/review-notification';
+import { CustomNotification } from '../models/custom-notification';
 import { NotificationComponent } from '../notification/notification.component';
 import { AppComponent } from '../app.component';
 
@@ -22,7 +22,7 @@ import { AppComponent } from '../app.component';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  notifications: ReviewNotification[] = [];
+  notifications: CustomNotification[] = [];
   isNotificationMenuVisible = false;
   unreadNotificationsCount = input<number>(0);
   countDecrement = output<void>();
@@ -53,23 +53,27 @@ export class NavbarComponent {
     this.isNotificationMenuVisible = !this.isNotificationMenuVisible;
   }
 
-  onNotificationClicked(notification: ReviewNotification) {
+  onNotificationClicked(notification: CustomNotification) {
     this.notificationService.markNotificationAsRead(notification.id).subscribe({
       next: () => {
-        this.countDecrement.emit();
+        if (!notification.isRead) {
+          this.countDecrement.emit();
+        }
         this.router.navigate(['/movie', notification.movieId, 'reviews'], {
-          queryParams: { reviewId: notification.reviewResponse.reviewId },
-          fragment: 'response-' + notification.reviewResponse.id,
+          queryParams: { reviewId: notification.reviewResponse?.reviewId },
+          fragment: `response-${notification.reviewResponse!.id}`,
         });
         this.isNotificationMenuVisible = false;
       },
     });
   }
 
-  onNotificationDeleted(notification: ReviewNotification) {
+  onNotificationDeleted(notification: CustomNotification) {
     this.notificationService.deleteNotification(notification.id).subscribe({
       next: () => {
-        this.countDecrement.emit();
+        if (!notification.isRead) {
+          this.countDecrement.emit();
+        }
         this.notifications = this.notifications.filter(
           (n) => n.id !== notification.id
         );
@@ -77,7 +81,7 @@ export class NavbarComponent {
     });
   }
 
-  onNotificationRead(notification: ReviewNotification) {
+  onNotificationRead(notification: CustomNotification) {
     this.notificationService.markNotificationAsRead(notification.id).subscribe({
       next: () => {
         this.countDecrement.emit();

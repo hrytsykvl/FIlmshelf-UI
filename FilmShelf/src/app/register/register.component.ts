@@ -10,7 +10,7 @@ import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { CompareValidation } from '../validators/custom-validator';
 import { AuthenticationResponse } from '../models/authentication-response';
-import { ERROR_MESSAGES } from '../constants/error-messages';
+import { ERROR_MESSAGES } from '../constants/messages';
 import { WatchlistService } from '../services/watchlist.service';
 import { saveAuthTokens } from '../helpers/auth-helper';
 import {
@@ -101,10 +101,7 @@ export class RegisterComponent {
 
           this.watchlistService.checkWatchlistsMovies().subscribe({
             next: (response) => {
-              localStorage.setItem(
-                WATCHLIST_KEY,
-                JSON.stringify(response)
-              );
+              localStorage.setItem(WATCHLIST_KEY, JSON.stringify(response));
               localStorage.setItem(
                 DEFAULT_WATCHLIST_ID_KEY,
                 JSON.stringify(response[0].watchlistId)

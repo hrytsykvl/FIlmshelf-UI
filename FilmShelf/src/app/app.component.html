@@ -14,16 +14,46 @@
       <img class="movie-poster" [src]="notification.moviePoster" />
       <div class="notification-content">
         <p>
-          <b>{{ notification.reviewResponse.userName }}</b> responded to your
+          <b>{{ notification.reviewResponse!.userName }}</b> responded to your
           review on <b>{{ notification.movieTitle }}</b
           >:
           <br />
-          {{ notification.reviewResponse.content | slice : 0 : 100 }}
-          <span *ngIf="notification.reviewResponse.content.length > 100"
-            >...</span>
+          {{ notification.reviewResponse!.content | slice : 0 : 100 }}
+          <span *ngIf="notification.reviewResponse!.content.length > 100"
+            >...</span
+          >
         </p>
       </div>
       <button class="close-btn" (click)="removeNotification(i, $event)">
+        <x-mark-outline-icon />
+      </button>
+    </div>
+
+    <div
+      *ngFor="let movieNotification of movieNotifications; let i = index"
+      class="movie-notification"
+    >
+      <div class="notification-content">
+        <h3>New Movie Recommendations</h3>
+        <div class="popular-movies">
+          <div
+            *ngFor="let movie of movieNotification.popularMovies"
+            class="popular-movie"
+          >
+            <img
+              [src]="movie.posterPath"
+              alt="Movie Poster"
+              class="movie-poster"
+            />
+            <div class="movie-info">
+              <h4>{{ movie.title }}</h4>
+              <p>Rating: {{ movie.averageRating.toFixed(1) }}</p>
+              <p>Release Date: {{ movie.releaseDate | date : "mediumDate" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="close-btn" (click)="removeMovieNotification(i, $event)">
         <x-mark-outline-icon />
       </button>
     </div>
