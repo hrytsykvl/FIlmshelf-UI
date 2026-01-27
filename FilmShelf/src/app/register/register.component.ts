@@ -18,11 +18,13 @@ import {
   WATCHLIST_KEY,
 } from '../constants/constants';
 import { AppComponent } from '../app.component';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { GoogleAuthService } from '../services/google-auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, GoogleSigninButtonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -35,6 +37,7 @@ export class RegisterComponent {
   lastAttemptedData: any = null;
 
   constructor(
+    private googleAuthService: GoogleAuthService,
     private accountService: AccountService,
     private watchlistService: WatchlistService,
     private router: Router,
@@ -50,6 +53,12 @@ export class RegisterComponent {
       {
         validators: [CompareValidation('password', 'confirmationPassword')],
       }
+    );
+  }
+
+  ngOnInit(): void {
+    this.googleAuthService.initGoogleAuthState(
+      this.initializeNotifications.bind(this)
     );
   }
 
@@ -74,6 +83,10 @@ export class RegisterComponent {
     return (
       JSON.stringify(currentFormData) !== JSON.stringify(this.lastAttemptedData)
     );
+  }
+
+  initializeNotifications() {
+    this.appComponent.initializeNotifications(true);
   }
 
   registerSubmitted() {
@@ -112,7 +125,7 @@ export class RegisterComponent {
           this.router.navigate(['/movies']);
           this.registerForm.reset();
           this.lastAttemptedData = null;
-          this.appComponent.initializeNotifications(true);
+          this.initializeNotifications();
         },
         error: (error) => {
           this.errorMessage = error.message;

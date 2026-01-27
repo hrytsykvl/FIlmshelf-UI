@@ -6,6 +6,7 @@ import { LoginUser } from '../models/login-user';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { 
   API_URL_FORGOT_PASSWORD, 
+  API_URL_GOOGLE_LOGIN, 
   API_URL_LOGIN, API_URL_LOGOUT, 
   API_URL_REGISTER, 
   API_URL_RESET_PASSWORD, 
@@ -15,6 +16,7 @@ import { PasswordResponse } from '../models/password-response';
 import { ResetPassword } from '../models/reset-password';
 import { ForgotPassword } from '../models/forgot-password';
 import { saveAuthTokens } from '../helpers/auth-helper';
+import { GoogleToken } from '../models/google-token';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +50,10 @@ export class AccountService {
     return this.httpClient.post<AuthenticationResponse>(API_URL_LOGIN, loginUser).pipe(
       catchError(this.handleError)
     );
+  }
+
+  public googleLogin(googleToken: GoogleToken): Observable<AuthenticationResponse> {
+    return this.httpClient.post<AuthenticationResponse>(API_URL_GOOGLE_LOGIN, googleToken);
   }
 
   public forgotPassword(forgotPassword: ForgotPassword) : Observable<PasswordResponse> {

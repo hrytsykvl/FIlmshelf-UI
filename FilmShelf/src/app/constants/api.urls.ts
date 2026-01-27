@@ -1,5 +1,6 @@
 export const API_URL_REGISTER = `${process.env['API_BASE_URL']}/account/register`;
 export const API_URL_LOGIN = `${process.env['API_BASE_URL']}/account/token`;
+export const API_URL_GOOGLE_LOGIN = `${process.env['API_BASE_URL']}/account/google-login`;
 export const API_URL_TOKEN = `${process.env['API_BASE_URL']}/account/refresh-token`;
 export const API_URL_LOGOUT = `${process.env['API_BASE_URL']}/account/logout`;
 export const API_URL_FORGOT_PASSWORD = `${process.env['API_BASE_URL']}/account/forgot-password`;
