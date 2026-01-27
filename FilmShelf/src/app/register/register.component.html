@@ -79,13 +79,20 @@
           <div class="w-25">
           </div>
   
-          <div class="flex-1">
+          <div class="register-buttons">
             <button 
               type="submit" 
               class="button button-green-back" 
               [disabled]="isRegisterInProgress || !hasFormChanged()">
               Register
             </button>
+            <asl-google-signin-button
+              type="standard"
+              size="medium"
+              shape="pill"
+              theme="filled_blue"
+            >
+            </asl-google-signin-button>
           </div>
         </div>
         

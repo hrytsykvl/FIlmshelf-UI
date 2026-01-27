@@ -46,13 +46,21 @@
           <div class="w-25">
           </div>
   
-          <div class="flex-1">
+          <div class="sign-in-buttons">
             <button 
               type="submit" 
               class="button button-green-back" 
               [disabled]="isLoginInProgress || !hasFormChanged()">
               Login
           </button>
+
+          <asl-google-signin-button
+            type="standard"
+            size="medium"
+            shape="pill"
+            theme="filled_blue"
+          >
+          </asl-google-signin-button>
           </div>
         </div>
         

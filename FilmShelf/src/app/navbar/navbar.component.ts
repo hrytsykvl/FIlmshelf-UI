@@ -7,6 +7,7 @@ import { NotificationService } from '../services/notification.service';
 import { CustomNotification } from '../models/custom-notification';
 import { NotificationComponent } from '../notification/notification.component';
 import { AppComponent } from '../app.component';
+import { GoogleAuthService } from '../services/google-auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -32,7 +33,8 @@ export class NavbarComponent {
     public accountService: AccountService,
     private router: Router,
     private notificationService: NotificationService,
-    private appComponent: AppComponent
+    private appComponent: AppComponent,
+    private googleAuthService: GoogleAuthService
   ) {}
 
   toggleNotificationMenu() {
@@ -110,6 +112,7 @@ export class NavbarComponent {
       this.accountService.logout().subscribe({
         next: () => {
           localStorage.clear();
+          this.googleAuthService.logOut();
           this.router.navigate(['/login']);
           this.appComponent.stopConnection();
         },

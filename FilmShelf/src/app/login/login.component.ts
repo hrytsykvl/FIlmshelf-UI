@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   Form,
@@ -19,15 +19,17 @@ import {
 } from '../constants/constants';
 import { SignalRService } from '../services/signal-r.service';
 import { AppComponent } from '../app.component';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { GoogleAuthService } from '../services/google-auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, GoogleSigninButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isLoginFormSubmitted: boolean = false;
   isLoginInProgress: boolean = false;
@@ -36,6 +38,7 @@ export class LoginComponent {
   lastAttemptedData: any = null;
 
   constructor(
+    private googleAuthService: GoogleAuthService,
     private accountService: AccountService,
     private router: Router,
     private watchlistService: WatchlistService,
@@ -45,6 +48,12 @@ export class LoginComponent {
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
     });
+  }
+
+  ngOnInit(): void {
+    this.googleAuthService.initGoogleAuthState(
+      this.initializeNotifications.bind(this)
+    );
   }
 
   get emailControl(): FormControl | null {
@@ -60,6 +69,10 @@ export class LoginComponent {
     return (
       JSON.stringify(currentFormData) !== JSON.stringify(this.lastAttemptedData)
     );
+  }
+
+  initializeNotifications() {
+    this.appComponent.initializeNotifications(true);
   }
 
   loginSubmitted() {
@@ -98,7 +111,7 @@ export class LoginComponent {
           this.router.navigate(['/movies'], { replaceUrl: true });
           this.loginForm.reset();
           this.lastAttemptedData = null;
-          this.appComponent.initializeNotifications(true);
+          this.initializeNotifications();
         },
 
         error: (error) => {
