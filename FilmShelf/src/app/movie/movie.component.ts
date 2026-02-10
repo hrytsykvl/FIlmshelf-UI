@@ -13,7 +13,7 @@ import { CONFIRM_MESSAGES } from '../constants/messages';
   standalone: true,
   imports: [CommonModule, NgHeroiconsModule, RouterLink],
   templateUrl: './movie.component.html',
-  styleUrl: './movie.component.css',
+  styleUrl: './movie.component.scss',
 })
 export class MovieComponent {
   movie = input.required<MovieResponse>();

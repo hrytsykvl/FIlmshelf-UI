@@ -1,47 +1,47 @@
 .watchlist {
   display: grid;
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr));
+  gap: 1.25rem;
 }
 
 .user-watchlist h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 0.625rem;
 }
 
 .last-added {
-  font-size: 16px;
+  font-size: 1rem;
   color: #555;
 }
 
 .total-titles {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
 }
 
 .edit-title-input {
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
+  border-radius: 0.25rem;
+  margin-right: 0.625rem;
   outline: none;
 }
 
 .edit-title-input:focus {
   border-color: #0ca678;
-  box-shadow: 0 0 3px rgba(0, 204, 153, 0.5);
+  box-shadow: 0 0 0.188rem rgba(0, 204, 153, 0.5);
 }
 
 .edit-title-button,
 .save-title-button,
 .cancel-title-button {
-  padding: 6px 12px;
-  font-size: 14px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  margin-right: 8px;
+  margin-right: 0.5rem;
 }
 
 .edit-title-button {
@@ -74,6 +74,6 @@
 
 .edit-title-actions {
   display: flex;
-  gap: 5px;
-  margin-top: 10px;
+  gap: 0.313rem;
+  margin-top: 0.625rem;
 }

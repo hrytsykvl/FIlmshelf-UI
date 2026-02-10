@@ -1,7 +1,9 @@
+@import '../../base';
+
 .title {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   color: #333;
 }
 
@@ -12,15 +14,15 @@
 
 .create-button {
   display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
   color: white;
   background-color: #099268;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.313rem;
   cursor: pointer;
   text-decoration: none;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .create-button:hover {
@@ -33,25 +35,31 @@
 }
 
 .separator {
-  margin: 20px 0;
+  margin: 1.25rem 0;
   height: 1px;
   background-color: #ddd;
   border: none;
 }
 
 app-custom-list {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .container {
-  padding: 20px;
+  padding: 1.25rem;
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .lists-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
+  gap: 1.25rem;
+}
+
+@media screen and (max-width: $bp-smallest) {
+  .lists-container {
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  }
 }

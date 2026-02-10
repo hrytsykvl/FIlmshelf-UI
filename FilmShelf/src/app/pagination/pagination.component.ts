@@ -6,7 +6,7 @@ import { Component, input, output } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.css'
+  styleUrl: './pagination.component.scss'
 })
 export class PaginationComponent {
   currentPage = input<number>(1);

@@ -1,24 +1,24 @@
 .custom-list {
   display: inline-flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 0.938rem;
 }
 
 .list-item {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin: 10px 0;
+  margin: 0.625rem 0;
 }
 
 .poster-container {
-  margin-right: 15px;
+  margin-right: 0.938rem;
 }
 
 .movie-poster {
-  width: 80px;
+  width: 5rem;
   height: auto;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .movie-poster:hover {
@@ -35,7 +35,7 @@
 
 .title {
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1.2rem;
 }
 
 .title:hover {
@@ -48,11 +48,11 @@
 .meta-container p {
   margin-top: 5px;
   color: #555;
-  font-size: 0.9em;
+  font-size: 0.9rem;
 }
 
 .placeholder-img {
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .delete-icon:hover {

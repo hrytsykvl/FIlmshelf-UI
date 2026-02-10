@@ -1,12 +1,12 @@
 .movie-link {
   cursor: pointer;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  border-bottom: 5px solid #2fbd34;
+  border-radius: 0.625rem;
+  border-bottom: 0.313rem solid #2fbd34;
 }
 
 .movie-link:hover {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   filter: brightness(60%);
 }
@@ -17,10 +17,10 @@
 }
 
 .movie-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
-  margin-bottom: 10px;
-  padding: 0 5px;
+  margin-bottom: 0.625rem;
+  padding: 0 0.313rem;
 }
 
 img {
@@ -37,9 +37,9 @@ img {
   background-color: #ff6f61;
   color: white;
   border: none;
-  border-top-left-radius: 10px;
-  padding: 6px 10px;
-  font-size: 16px;
+  border-top-left-radius: 0.625rem;
+  padding: 0.375rem 0.625rem;
+  font-size: 1rem;
   cursor: pointer;
   z-index: 1;
 }
@@ -56,9 +56,9 @@ img {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-top-left-radius: 10px;
-  padding: 6px 10px;
-  font-size: 16px;
+  border-top-left-radius: 0.625rem;
+  padding: 0.375rem 0.625rem;
+  font-size: 1rem;
   cursor: pointer;
   z-index: 1;
 }
@@ -76,19 +76,19 @@ img {
 
 .star-icon {
   color: #fcc419;
-  margin-right: 5px;
+  margin-right: 0.313rem;
 }
 
 .delete-button {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 0.25rem;
+  right: 0.25rem;
   background-color: #ff4d4d;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 6px 10px;
-  font-size: 14px;
+  border-radius: 0.313rem;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.875rem;
   cursor: pointer;
   z-index: 1;
 }

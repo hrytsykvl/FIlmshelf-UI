@@ -10,7 +10,7 @@ import { CONFIRM_MESSAGES } from '../constants/messages';
   standalone: true,
   imports: [CommonModule, NgHeroiconsModule, RouterLink],
   templateUrl: './custom-list.component.html',
-  styleUrl: './custom-list.component.css',
+  styleUrl: './custom-list.component.scss',
 })
 export class CustomListComponent implements OnInit {
   watchlistId = input.required<number>();

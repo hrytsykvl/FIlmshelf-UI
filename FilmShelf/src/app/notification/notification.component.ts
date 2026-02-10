@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [NgHeroiconsModule, CommonModule],
   templateUrl: './notification.component.html',
-  styleUrl: './notification.component.css',
+  styleUrl: './notification.component.scss',
 })
 export class NotificationComponent {
   notification = input.required<CustomNotification>();

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [MovieComponent, CommonModule],
   templateUrl: './popular-movies.component.html',
-  styleUrl: './popular-movies.component.css',
+  styleUrl: './popular-movies.component.scss',
 })
 export class PopularMoviesComponent implements OnInit {
   movies: MovieListResponse | null = null;

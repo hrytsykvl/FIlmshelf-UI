@@ -1,11 +1,13 @@
+@import '../../base';
+
 .add-review-button {
-  width: 200px;
+  width: 12.5rem;
   background-color: #087f5b;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 .add-review-button:hover {
@@ -23,8 +25,8 @@
 }
 
 .reviewed-message {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
   color: #37b24d;
   font-weight: bold;
 }
@@ -35,14 +37,14 @@
 
 .message {
   position: absolute;
-  bottom: 35px;
+  bottom: 2.188rem;
   left: 0;
   margin: 0;
-  padding: 5px 10px;
+  padding: 0.313rem 0.625rem;
   background-color: #fff3cd;
   border: 1px solid #ffeeba;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 0.313rem;
+  font-size: 0.875rem;
   color: #856404;
 }
 
@@ -53,30 +55,30 @@
 }
 
 .add-review-form {
-  margin: 20px 0;
-  padding: 10px;
+  margin: 1.25rem 0;
+  padding: 0.625rem;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .add-review-form textarea {
-  margin: 10px 0;
+  margin: 0.625rem 0;
   width: 100%;
-  font-size: 14px;
+  font-size: 0.875rem;
   resize: none;
 }
 
 .rating-stars {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0.313rem;
 }
 
 .rating-stars .star {
-  font-size: 24px;
+  font-size: 1.5rem;
   cursor: pointer;
   color: #ccc;
-  margin-right: 5px;
+  margin-right: 0.313rem;
 }
 
 .rating-stars .star.selected {
@@ -93,16 +95,16 @@
 
 .rating-stars:hover .star {
   color: #fc0;
-  text-shadow: #fc0 0 0 20px;
+  text-shadow: #fc0 0 0 1.25rem;
 }
 
 .submit-button {
   background-color: #2f9e44;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 .submit-button:disabled {
@@ -113,4 +115,30 @@
 .submit-button:hover {
   background-color: #40c057;
   transition: all 0.3s ease;
+}
+
+@media screen and (max-width: $bp-small) {
+  .rating-stars {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: $bp-smallest) {
+  .reviews-header {
+    flex-direction: column;
+  }
+
+  .add-review-button {
+    width: 100%;
+  }
+
+  .message {
+    position: static;
+    font-size: 0.625rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .rating-stars .star {
+    font-size: 1rem;
+  }
 }

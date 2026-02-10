@@ -21,7 +21,7 @@ import { AccountService } from '../services/account.service';
   standalone: true,
   imports: [CommonModule, ReviewComponent, ReactiveFormsModule],
   templateUrl: './reviews.component.html',
-  styleUrl: './reviews.component.css',
+  styleUrl: './reviews.component.scss',
 })
 export class ReviewsComponent implements OnInit {
   reviews: Review[] = [];

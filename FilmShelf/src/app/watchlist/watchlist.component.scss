@@ -1,16 +1,16 @@
 .watchlist {
   display: grid;
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr));
+  gap: 1.25rem;
 }
 
 .user-watchlist h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 0.625rem;
 }
 
 .last-added {
-  font-size: 16px;
+  font-size: 1rem;
   color: #555;
 }
 
@@ -21,15 +21,15 @@
 }
 
 .total-titles {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   color: #333;
 }
 
 .sort-options {
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
   border: 1px solid #ddd;
   color: #fff;
   font-weight: bold;

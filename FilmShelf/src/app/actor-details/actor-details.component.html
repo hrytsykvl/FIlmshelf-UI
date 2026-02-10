@@ -9,7 +9,21 @@
       <h1 class="actor-name">{{ actorDetails?.name }}</h1>
       <div class="actor-bio">
         <strong>Biography:</strong>
-        <span [innerHTML]="formattedBio"></span>
+        <div>
+          <p [innerHTML]="firstParagraph"></p>
+        </div>
+
+        <div [class.collapsed]="isCollapsed">
+          <div [innerHTML]="remainingParagraphs"></div>
+        </div>
+
+        <button
+          *ngIf="remainingParagraphs"
+          (click)="toggleCollapse()"
+          class="read-more-btn"
+        >
+          {{ isCollapsed ? "Read More" : "Show Less" }}
+        </button>
       </div>
       <p>
         <span

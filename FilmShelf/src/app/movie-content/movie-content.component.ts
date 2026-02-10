@@ -6,6 +6,6 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './movie-content.component.html',
-  styleUrl: './movie-content.component.css',
+  styleUrl: './movie-content.component.scss',
 })
 export class MovieContentComponent {}

@@ -14,7 +14,7 @@ import { WATCHLIST_KEY } from '../constants/constants';
   standalone: true,
   imports: [MovieComponent, CommonModule, NgHeroiconsModule, FormsModule],
   templateUrl: './custom-list-details.component.html',
-  styleUrl: './custom-list-details.component.css',
+  styleUrl: './custom-list-details.component.scss',
 })
 export class CustomListDetailsComponent implements OnInit {
   watchlist = signal<WatchlistResponse | null>(null);

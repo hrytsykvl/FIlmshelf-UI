@@ -25,7 +25,7 @@ import { CONFIRM_MESSAGES } from '../constants/messages';
   standalone: true,
   imports: [CommonModule, NgHeroiconsModule, ReactiveFormsModule],
   templateUrl: './review.component.html',
-  styleUrl: './review.component.css',
+  styleUrl: './review.component.scss',
 })
 export class ReviewComponent implements OnInit, AfterViewChecked {
   review = input.required<Review>();

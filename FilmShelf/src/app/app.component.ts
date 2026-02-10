@@ -15,7 +15,7 @@ import { MovieNotification } from './models/movie-notification';
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, CommonModule, NgHeroiconsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'FilmShelf';

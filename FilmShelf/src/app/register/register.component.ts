@@ -26,7 +26,7 @@ import { GoogleAuthService } from '../services/google-auth.service';
   standalone: true,
   imports: [ReactiveFormsModule, GoogleSigninButtonModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   registerForm: FormGroup;

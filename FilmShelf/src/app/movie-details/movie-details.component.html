@@ -19,12 +19,16 @@
           ><strong>Release Date:</strong>
           {{ movieDetails?.releaseDate | date }}</span
         >
-        <span><strong>Runtime:</strong> {{ movieDetails?.runtime }} mins</span>
+        <span
+          ><strong>Runtime:</strong>
+          {{ getFormattedTime(movieDetails!.runtime) }}</span
+        >
         <span><strong>Director:</strong> {{ movieDetails?.director }}</span>
       </p>
       <p class="movie-rating">
         <strong>Average Rating:</strong>
         {{ movieDetails?.averageRating?.toFixed(2) }} / 10
+        <star-solid-icon class="star-icon" />
       </p>
       <div class="list-buttons">
         <div
@@ -54,12 +58,18 @@
               *ngFor="let list of userLists"
               (click)="toggleMovieInList(list.watchlistId)"
             >
-              @if(list.movieIds.includes(movieId)){
-              <check-outline-icon />
-              } @else {
-              <plus-outline-icon />
-              }
-              {{ list.title }}
+              <div class="user-list">
+                @if(list.movieIds.includes(movieId)){
+                <check-outline-icon />
+                } @else {
+                <plus-outline-icon />
+                }
+                {{ list.title }}
+              </div>
+              <chevron-right-outline-icon
+                class="navigate-icon"
+                (click)="navigateToList($event, list.watchlistId)"
+              />
             </li>
           </ul>
         </div>

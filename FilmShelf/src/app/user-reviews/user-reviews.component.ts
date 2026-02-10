@@ -12,7 +12,7 @@ import { CONFIRM_MESSAGES } from '../constants/messages';
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './user-reviews.component.html',
-  styleUrl: './user-reviews.component.css',
+  styleUrl: './user-reviews.component.scss',
 })
 export class UserReviewsComponent implements OnInit {
   reviews: Review[] = [];

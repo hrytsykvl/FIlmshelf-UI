@@ -12,7 +12,7 @@ import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
   standalone: true,
   imports: [CommonModule, MovieComponent, PaginationComponent],
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.css'
+  styleUrl: './movies.component.scss'
 })
 export class MoviesComponent implements OnInit {
   page: MovieListResponse | null = null;

@@ -32,7 +32,7 @@ import {
     RouterOutlet,
   ],
   templateUrl: './movie-details.component.html',
-  styleUrl: './movie-details.component.css',
+  styleUrl: './movie-details.component.scss',
 })
 export class MovieDetailsComponent implements OnInit {
   movieDetails: MovieDetailsResponse | null = null;
@@ -157,6 +157,18 @@ export class MovieDetailsComponent implements OnInit {
           .subscribe();
       }
     }
+  }
+
+  getFormattedTime(time: number): string {
+    const hours = Math.floor(time / 60);
+    const minutes = time % 60;
+
+    return `${hours} hours ${minutes} minutes`;
+  }
+
+  navigateToList(event: Event, listId: number): void {
+    event.stopPropagation();
+    this.router.navigate([`/list/${listId}`]);
   }
 
   onActorClick(actorId: number) {

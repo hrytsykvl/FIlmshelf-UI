@@ -11,12 +11,14 @@ import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
   standalone: true,
   imports: [CommonModule, MovieComponent],
   templateUrl: './actor-details.component.html',
-  styleUrl: './actor-details.component.css'
+  styleUrl: './actor-details.component.scss'
 })
 export class ActorDetailsComponent implements OnInit {
   actorDetails: ActorDetailsResponse | null = null;
-  formattedBio: string = '';
+  firstParagraph = '';
+  remainingParagraphs = '';
   movieWatchlistStatus: { [movieId: number]: boolean } = {};
+  isCollapsed = true;
 
   constructor(
     private route: ActivatedRoute, 
@@ -30,7 +32,10 @@ export class ActorDetailsComponent implements OnInit {
       this.actorService.findActor(id).subscribe({
         next: (response: ActorDetailsResponse) => {
           this.actorDetails = response;
-          this.formattedBio = this.actorDetails.bio.replace(/\n/g, '<br>');
+          const formattedBio = this.actorDetails.bio.replace(/\n/g, '<br>');
+          const paragraphs = formattedBio.split('<br><br>');
+          this.firstParagraph = paragraphs[0];
+          this.remainingParagraphs = paragraphs.slice(1).join('<br><br>');
 
           if (this.actorDetails.movies) {
             this.movieWatchlistStatus = checkMoviesInWatchlist(
@@ -40,6 +45,10 @@ export class ActorDetailsComponent implements OnInit {
         }
       });
     });
+  }
+
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   onMovieClick(movieId: number) {

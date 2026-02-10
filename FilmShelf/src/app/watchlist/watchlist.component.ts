@@ -11,7 +11,7 @@ import { WatchlistMovie } from '../models/watchlist-movie';
   standalone: true,
   imports: [MovieComponent, CommonModule],
   templateUrl: './watchlist.component.html',
-  styleUrl: './watchlist.component.css',
+  styleUrl: './watchlist.component.scss',
 })
 export class WatchlistComponent {
   watchlist = signal<WatchlistResponse | null>(null);

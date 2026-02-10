@@ -13,7 +13,7 @@ import { updateWatchlistStore } from '../helpers/watchlist-helper';
   standalone: true,
   imports: [CommonModule, CustomListComponent, RouterLink],
   templateUrl: './custom-lists.component.html',
-  styleUrl: './custom-lists.component.css',
+  styleUrl: './custom-lists.component.scss',
 })
 export class CustomListsComponent implements OnInit {
   firstMoviePoster: string = '';

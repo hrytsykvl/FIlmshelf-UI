@@ -1,5 +1,5 @@
-import { Component, input, output } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, input, OnInit, output } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AccountService } from '../services/account.service';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,7 @@ import { CustomNotification } from '../models/custom-notification';
 import { NotificationComponent } from '../notification/notification.component';
 import { AppComponent } from '../app.component';
 import { GoogleAuthService } from '../services/google-auth.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-navbar',
@@ -20,22 +21,48 @@ import { GoogleAuthService } from '../services/google-auth.service';
     NotificationComponent,
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   notifications: CustomNotification[] = [];
   isNotificationMenuVisible = false;
   unreadNotificationsCount = input<number>(0);
   countDecrement = output<void>();
   countDelete = output<void>();
+  isMenuVisible = false;
+  isDropdownOpen = false;
 
   constructor(
     public accountService: AccountService,
     private router: Router,
     private notificationService: NotificationService,
     private appComponent: AppComponent,
-    private googleAuthService: GoogleAuthService
-  ) {}
+    private googleAuthService: GoogleAuthService,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isMenuVisible = false;
+        this.isDropdownOpen = false;
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe(`(max-width: 800px)`).subscribe((result) => {
+      if (!result.matches) {
+        this.isMenuVisible = false;
+      }
+    });
+  }
+
+  toggleMenu() {
+    this.isMenuVisible = !this.isMenuVisible;
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
   toggleNotificationMenu() {
     if (!this.isNotificationMenuVisible) {

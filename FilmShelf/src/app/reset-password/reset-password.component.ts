@@ -10,7 +10,7 @@ import { PasswordResponse } from '../models/password-response';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css'
+  styleUrl: './reset-password.component.scss'
 })
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;

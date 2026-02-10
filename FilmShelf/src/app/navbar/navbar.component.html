@@ -1,65 +1,78 @@
 <nav class="navbar">
   <h2 class="app-title">FilmShelf</h2>
-  <ul class="nav-links">
-    <li>
-      <a [routerLink]="['/movies/popular']" routerLinkActive="nav-active">
-        Popular
-      </a>
-    </li>
-    <li>
-      <a [routerLink]="['/movies']" routerLinkActive="nav-active">Movies</a>
-    </li>
-    @if(!accountService.isLoggedIn) {
-    <li>
-      <a [routerLink]="['/login']">Login</a>
-    </li>
-    <li>
-      <a [routerLink]="['/register']">Register</a>
-    </li>
-    } @else {
-    <li>
-      <a [routerLink]="['/watchlist']" class="watchlist">
-        <bookmark-solid-icon class="bookmark-icon" />
-        Watchlist
-      </a>
-    </li>
-    <li class="notification-section">
-      <bell-solid-icon class="bell-icon" (click)="toggleNotificationMenu()" />
-      <div class="notification-badge" *ngIf="unreadNotificationsCount() > 0">
-        {{ unreadNotificationsCount() }}
-      </div>
-
-      <div class="notification-menu" *ngIf="isNotificationMenuVisible">
-        <div class="notification-menu-header">
-          <h3>Notifications</h3>
-          @if(unreadNotificationsCount() > 0) {
-          <button class="clear-button" (click)="deleteAllNotifications()">
-            Clear all
-            <archive-box-solid-icon />
-          </button>
-          }
+  <div class="flex-spacer">
+    <div class="header-right">
+      @if (accountService.isLoggedIn) {
+      <div class="notification-section">
+        <bell-solid-icon class="bell-icon" (click)="toggleNotificationMenu()" />
+        <div class="notification-badge" *ngIf="unreadNotificationsCount() > 0">
+          {{ unreadNotificationsCount() }}
         </div>
-        <app-notification
-          class="notification"
-          *ngFor="let notification of notifications"
-          [ngClass]="{ unread: !notification.isRead }"
-          (notificationClicked)="onNotificationClicked(notification)"
-          (notificationDeleted)="onNotificationDeleted(notification)"
-          (notificationRead)="onNotificationRead(notification)"
-          [notification]="notification"
-        ></app-notification>
-      </div>
-    </li>
-    <li class="dropdown">
-      <user-circle-solid-icon class="user-icon" />
 
-      <div class="dropdown-menu">
-        <a [routerLink]="['/watchlist']">Your watchlist</a>
-        <a [routerLink]="['/lists']">Your lists</a>
-        <a [routerLink]="['/reviews']">Your reviews</a>
-        <a (click)="onLogOutClicked()">Logout</a>
+        <div class="notification-menu" *ngIf="isNotificationMenuVisible">
+          <div class="notification-menu-header">
+            <h3>Notifications</h3>
+            @if(unreadNotificationsCount() > 0) {
+            <button class="clear-button" (click)="deleteAllNotifications()">
+              Clear all
+              <archive-box-solid-icon />
+            </button>
+            }
+          </div>
+          <app-notification
+            class="notification"
+            *ngFor="let notification of notifications"
+            [ngClass]="{ unread: !notification.isRead }"
+            (notificationClicked)="onNotificationClicked(notification)"
+            (notificationDeleted)="onNotificationDeleted(notification)"
+            (notificationRead)="onNotificationRead(notification)"
+            [notification]="notification"
+          ></app-notification>
+        </div>
       </div>
-    </li>
-    }
-  </ul>
+      }
+      <button class="menu-toggle" (click)="toggleMenu()">
+        <bars-3-outline-icon />
+      </button>
+    </div>
+    <ul class="nav-links" [class.menu-visible]="isMenuVisible">
+      <li>
+        <a [routerLink]="['/movies/popular']" routerLinkActive="nav-active">
+          Popular
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/movies']" routerLinkActive="nav-active">Movies</a>
+      </li>
+      @if(!accountService.isLoggedIn) {
+      <li>
+        <a [routerLink]="['/login']">Login</a>
+      </li>
+      <li>
+        <a [routerLink]="['/register']">Register</a>
+      </li>
+      } @else {
+      <li>
+        <a [routerLink]="['/watchlist']" class="watchlist">
+          <bookmark-solid-icon class="bookmark-icon" />
+          Watchlist
+        </a>
+      </li>
+      <li
+        class="dropdown"
+        (click)="toggleDropdown()"
+        [class.visible]="isMenuVisible"
+      >
+        <user-circle-solid-icon class="user-icon" />
+
+        <div class="dropdown-menu" [class.open]="isDropdownOpen">
+          <a [routerLink]="['/watchlist']">Your watchlist</a>
+          <a [routerLink]="['/lists']">Your lists</a>
+          <a [routerLink]="['/reviews']">Your reviews</a>
+          <a (click)="onLogOutClicked()">Logout</a>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
 </nav>

@@ -15,7 +15,7 @@ import { updateWatchlistStore } from '../helpers/watchlist-helper';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './create-list.component.html',
-  styleUrl: './create-list.component.css',
+  styleUrl: './create-list.component.scss',
 })
 export class CreateListComponent {
   newListForm: FormGroup;

@@ -7,7 +7,7 @@ import { CastMember } from '../models/cast-member';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './actor.component.html',
-  styleUrl: './actor.component.css'
+  styleUrl: './actor.component.scss'
 })
 export class ActorComponent {
   actor = input.required<CastMember>();
