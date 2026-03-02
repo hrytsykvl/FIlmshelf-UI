@@ -1,4 +1,8 @@
 <div class="movies-container">
+  <app-search-bar
+    (movieSelected)="onSearchMovieSelected($event)"
+  ></app-search-bar>
+
   <h2 class="title">Movies</h2>
   <div class="page">
     <app-movie

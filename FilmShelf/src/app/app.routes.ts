@@ -14,6 +14,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { MovieContentComponent } from './movie-content/movie-content.component';
 import { UserReviewsComponent } from './user-reviews/user-reviews.component';
 import { PopularMoviesComponent } from './popular-movies/popular-movies.component';
+import { RecommendedMoviesComponent } from './recommended-movies/recommended-movies.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -35,6 +36,7 @@ export const routes: Routes = [
   { path: 'list/:id', component: CustomListDetailsComponent },
   { path: 'create-list', component: CreateListComponent },
   { path: 'reviews', component: UserReviewsComponent },
-  { path: 'movies/popular', component: PopularMoviesComponent},
+  { path: 'movies/popular', component: PopularMoviesComponent },
+  { path: 'movies/recommended', component: RecommendedMoviesComponent },
   { path: '**', redirectTo: '' },
 ];

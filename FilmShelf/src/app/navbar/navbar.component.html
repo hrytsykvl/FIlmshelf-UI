@@ -44,6 +44,11 @@
       <li>
         <a [routerLink]="['/movies']" routerLinkActive="nav-active">Movies</a>
       </li>
+      <li>
+        <a [routerLink]="['/movies/recommended']" routerLinkActive="nav-active">
+          For You
+        </a>
+      </li>
       @if(!accountService.isLoggedIn) {
       <li>
         <a [routerLink]="['/login']">Login</a>

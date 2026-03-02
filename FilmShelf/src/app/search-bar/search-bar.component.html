@@ -1,0 +1,15 @@
+<div class="search-container">
+  <input
+    type="text"
+    [formControl]="searchControl"
+    [placeholder]="placeholder()"
+    class="search-input"
+  />
+
+  <ul *ngIf="movies().length > 0" class="suggestions">
+    <li *ngFor="let movie of movies()" (click)="selectMovie(movie)">
+      <img [src]="movie.posterPath" alt="{{ movie.title }}" class="poster" />
+      <span class="movie-title">{{ movie.title }}</span>
+    </li>
+  </ul>
+</div>

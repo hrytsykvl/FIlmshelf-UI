@@ -1,0 +1,15 @@
+<div class="popular-container">
+  <h2 class="title">Movies recommended for you</h2>
+  <div class="page">
+    <div
+      *ngFor="let movie of recommendedMovies; let i = index"
+      class="movie-item"
+    >
+      <app-movie
+        [movie]="movie"
+        [inWatchlist]="movieWatchlistStatus[movie.id] || false"
+        (movieClicked)="onMovieClick($event)"
+      ></app-movie>
+    </div>
+  </div>
+</div>

@@ -3,30 +3,39 @@ import { MovieListResponse } from '../models/movie-list-response';
 import { MovieService } from '../services/movie.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MovieComponent } from "../movie/movie.component";
-import { PaginationComponent } from "../pagination/pagination.component";
+import { MovieComponent } from '../movie/movie.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { MovieResponse } from '../models/movie-response';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [CommonModule, MovieComponent, PaginationComponent],
+  imports: [
+    CommonModule,
+    MovieComponent,
+    PaginationComponent,
+    SearchBarComponent,
+  ],
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.scss'
+  styleUrl: './movies.component.scss',
 })
 export class MoviesComponent implements OnInit {
   page: MovieListResponse | null = null;
   currentPage: number = 1;
   totalPages?: number;
   movieWatchlistStatus: { [key: number]: boolean } = {};
+  searchQuery: string = '';
 
   constructor(
     private movieService: MovieService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe((params) => {
       const page = Number(params['page']) || 1;
       this.currentPage = page;
       this.loadPage(page);
@@ -41,18 +50,18 @@ export class MoviesComponent implements OnInit {
         this.totalPages = response.totalPages;
 
         this.movieWatchlistStatus = checkMoviesInWatchlist(
-          this.page.movieList.map(movie => movie.id)
+          this.page.movieList.map((movie) => movie.id)
         );
 
         this.router.navigate([], {
           relativeTo: this.activatedRoute,
-          queryParams: {page: pageNumber},
-          queryParamsHandling: 'merge'
+          queryParams: { page: pageNumber },
+          queryParamsHandling: 'merge',
         });
       },
       error: (error) => {
         console.log(error);
-      }
+      },
     });
   }
 
@@ -60,7 +69,11 @@ export class MoviesComponent implements OnInit {
     this.loadPage(pageNumber);
   }
 
-  onMovieClick(movieId : number) {
+  onMovieClick(movieId: number) {
     this.router.navigate(['/movie', movieId]);
+  }
+
+  onSearchMovieSelected(movie: MovieResponse): void {
+    this.router.navigate(['/movie', movie.id]);
   }
 }
