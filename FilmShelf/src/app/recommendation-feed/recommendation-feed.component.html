@@ -1,0 +1,104 @@
+<div class="feed-container">
+  <div class="feed-header">
+    <h2 class="title">Movies recommended for you</h2>
+
+    <div class="controls">
+      <div class="view-toggle" role="group" aria-label="View mode">
+        <button
+          type="button"
+          [class.active]="viewMode === 'grid'"
+          (click)="setViewMode('grid')"
+          [disabled]="isLoading"
+        >
+          Grid
+        </button>
+        <button
+          type="button"
+          [class.active]="viewMode === 'detailed'"
+          (click)="setViewMode('detailed')"
+          [disabled]="isLoading"
+        >
+          Detailed
+        </button>
+      </div>
+
+      <div class="method-selector">
+        <label for="method-select">Method:</label>
+        <select
+          id="method-select"
+          [(ngModel)]="selectedMethod"
+          (change)="onMethodChange()"
+          [disabled]="isLoading"
+        >
+          <option *ngFor="let method of availableMethods" [value]="method.value">
+            {{ method.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <p class="method-description">{{ selectedMethodDescription }}</p>
+
+  <div *ngIf="isLoading" class="status-message">
+    Loading recommendations...
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="status-message error">
+    {{ errorMessage }}
+  </div>
+
+  <ng-container *ngIf="!isLoading && !errorMessage">
+    <ng-container *ngIf="viewMode === 'grid'">
+      <div *ngIf="recommendedMovies.length === 0" class="status-message">
+        No recommendations available for this method.
+      </div>
+
+      <div *ngIf="recommendedMovies.length > 0" class="page">
+        <div
+          *ngFor="let movie of recommendedMovies; trackBy: trackByMovieId"
+          class="movie-item"
+        >
+          <app-movie
+            [movie]="movie"
+            [inWatchlist]="movieWatchlistStatus[movie.id] || false"
+            (movieClicked)="onMovieClick($event)"
+          ></app-movie>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="viewMode === 'detailed'">
+      <div *ngIf="llmRecommendations.length === 0" class="status-message">
+        No detailed recommendations available.
+      </div>
+
+      <div *ngIf="llmRecommendations.length > 0" class="detailed-list">
+        <article
+          *ngFor="let item of llmRecommendations; trackBy: trackByLlmMovieId"
+          class="detailed-card"
+        >
+          <img
+            class="poster"
+            [src]="item.movie.posterPath"
+            [alt]="item.movie.title"
+            (click)="onMovieClick(item.movie.id)"
+          />
+
+          <div class="info">
+            <div class="info-header">
+              <h3 class="movie-title" (click)="onMovieClick(item.movie.id)">
+                {{ item.movie.title }}
+              </h3>
+              <span class="score-badge" title="Recommendation score">
+                {{ item.score | number: '1.0-2' }}
+              </span>
+            </div>
+
+            <p class="reason">{{ item.reason }}</p>
+          </div>
+        </article>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

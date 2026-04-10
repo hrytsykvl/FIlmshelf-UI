@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { MovieListResponse } from '../models/movie-list-response';
 import { MovieDetailsResponse } from '../models/movie-details-response';
 import { MovieResponse } from '../models/movie-response';
+import { LlmRecommendation } from '../models/llm-recommendation';
+
+export type LlmProvider = 'claude' | 'ollama';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +29,24 @@ export class MovieService {
     return this.httpClient.get<MovieListResponse>(API_URL_MOVIES, { params });
   }
 
-  public retrieveRecommendedMovies(): Observable<MovieResponse[]> {
+  public retrieveRecommendedMovies(method?: string): Observable<MovieResponse[]> {
+    let params = new HttpParams();
+    if (method) {
+      params = params.set('method', method);
+    }
     return this.httpClient.get<MovieResponse[]>(
-      `${API_URL_MOVIES}/recommendations`
+      `${API_URL_MOVIES}/recommendations`,
+      { params }
+    );
+  }
+
+  public retrieveLlmRecommendations(
+    provider: LlmProvider = 'claude'
+  ): Observable<LlmRecommendation[]> {
+    const params = new HttpParams().set('provider', provider);
+    return this.httpClient.get<LlmRecommendation[]>(
+      `${API_URL_MOVIES}/recommendations/llm`,
+      { params }
     );
   }
 

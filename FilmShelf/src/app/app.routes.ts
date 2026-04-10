@@ -15,6 +15,7 @@ import { MovieContentComponent } from './movie-content/movie-content.component';
 import { UserReviewsComponent } from './user-reviews/user-reviews.component';
 import { PopularMoviesComponent } from './popular-movies/popular-movies.component';
 import { RecommendedMoviesComponent } from './recommended-movies/recommended-movies.component';
+import { RecommendationFeedComponent } from './recommendation-feed/recommendation-feed.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -38,5 +39,6 @@ export const routes: Routes = [
   { path: 'reviews', component: UserReviewsComponent },
   { path: 'movies/popular', component: PopularMoviesComponent },
   { path: 'movies/recommended', component: RecommendedMoviesComponent },
+  { path: 'movies/recommendation-feed', component: RecommendationFeedComponent },
   { path: '**', redirectTo: '' },
 ];
