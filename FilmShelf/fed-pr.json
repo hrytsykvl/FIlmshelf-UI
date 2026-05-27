@@ -1,0 +1,6 @@
+﻿{
+  "name": "github-pr",
+  "issuer": "https://token.actions.githubusercontent.com",
+  "subject": "repo:",
+  "audiences": ["api://AzureADTokenExchange"]
+}
