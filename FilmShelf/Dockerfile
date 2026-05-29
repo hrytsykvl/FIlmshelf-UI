@@ -6,6 +6,7 @@ WORKDIR /app
 # Build-time configuration (injected into the bundle via dotenv-webpack)
 ARG API_BASE_URL="https://filmshelf-api.mangosea-0e6f4fc6.switzerlandnorth.azurecontainerapps.io/api"
 ARG BASE_URL="https://filmshelf-api.mangosea-0e6f4fc6.switzerlandnorth.azurecontainerapps.io"
+ARG APP_BASE_URL="https://filmshelf-ui.mangosea-0e6f4fc6.switzerlandnorth.azurecontainerapps.io"
 ARG GOOGLE_CLIENT_ID=""
 
 COPY package*.json ./
@@ -14,8 +15,8 @@ RUN npm ci
 COPY . .
 
 # Generate the .env that dotenv-webpack consumes during `ng build`
-RUN printf "API_BASE_URL=%s\nBASE_URL=%s\nGOOGLE_CLIENT_ID=%s\n" \
-    "$API_BASE_URL" "$BASE_URL" "$GOOGLE_CLIENT_ID" > .env
+RUN printf "API_BASE_URL=%s\nBASE_URL=%s\nAPP_BASE_URL=%s\nGOOGLE_CLIENT_ID=%s\n" \
+    "$API_BASE_URL" "$BASE_URL" "$APP_BASE_URL" "$GOOGLE_CLIENT_ID" > .env
 
 RUN npm run build -- --configuration production
 

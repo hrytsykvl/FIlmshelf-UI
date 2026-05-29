@@ -1,1 +1,1 @@
-export const URL_RESET_PASSWORD = "http://localhost:4200/reset";
+export const URL_RESET_PASSWORD = `${process.env['APP_BASE_URL']}/reset`;
