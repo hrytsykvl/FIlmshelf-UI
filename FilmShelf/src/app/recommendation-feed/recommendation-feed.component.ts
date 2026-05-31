@@ -31,7 +31,7 @@ export class RecommendationFeedComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
-  selectedMethod = 'llm';
+  selectedMethod = 'ml';
   viewMode: ViewMode = 'grid';
 
   readonly methods: RecommendationMethod[] = [
@@ -63,8 +63,8 @@ export class RecommendationFeedComponent implements OnInit {
     },
     {
       value: 'llama',
-      label: 'Llama (local Ollama)',
-      description: 'Locally-hosted Llama model with per-movie reasoning',
+      label: 'GPT (OpenAI)',
+      description: 'GPT-based with per-movie reasoning',
       llmProvider: 'ollama',
     },
   ];
@@ -78,7 +78,7 @@ export class RecommendationFeedComponent implements OnInit {
   get availableMethods(): RecommendationMethod[] {
     return this.viewMode === 'detailed'
       ? this.methods.filter((m) => !!m.llmProvider)
-      : this.methods;
+      : this.methods.filter((m) => !m.llmProvider);
   }
 
   get selectedMethodDescription(): string {
@@ -94,11 +94,11 @@ export class RecommendationFeedComponent implements OnInit {
     }
     this.viewMode = mode;
 
-    if (mode === 'detailed') {
-      const current = this.methods.find((m) => m.value === this.selectedMethod);
-      if (!current?.llmProvider) {
-        this.selectedMethod = 'llm';
-      }
+    const current = this.methods.find((m) => m.value === this.selectedMethod);
+    if (mode === 'detailed' && !current?.llmProvider) {
+      this.selectedMethod = 'llm';
+    } else if (mode === 'grid' && current?.llmProvider) {
+      this.selectedMethod = 'ml';
     }
 
     this.loadRecommendations();
