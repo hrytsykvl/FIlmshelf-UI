@@ -31,7 +31,7 @@
           [disabled]="isLoading"
         >
           <option *ngFor="let method of availableMethods" [value]="method.value">
-            {{ method.label }}
+            {{ method.labelKey | translate }}
           </option>
         </select>
       </div>

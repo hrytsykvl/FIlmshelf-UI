@@ -96,8 +96,21 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
     // search bar
     'searchBar.placeholder': 'Search movies...',
 
-    // recommendation feed
-    'recommendationFeed.heading': 'Movies recommended for you',
+    // recommendation feed — method labels & descriptions
+    'recommendationFeed.method.claude.label': 'Claude (AI reasoning)',
+    'recommendationFeed.method.claude.description': 'Claude-based with per-movie reasoning',
+    'recommendationFeed.method.ml.label': 'Matrix Factorization (ML.NET)',
+    'recommendationFeed.method.ml.description': 'Matrix factorization model',
+    'recommendationFeed.method.content.label': 'Content-based',
+    'recommendationFeed.method.content.description': 'Genres, director and actors similarity',
+    'recommendationFeed.method.userCf.label': 'User Collaborative Filtering',
+    'recommendationFeed.method.userCf.description': 'Pearson correlation between users',
+    'recommendationFeed.method.embedding.label': 'Azure Embeddings',
+    'recommendationFeed.method.embedding.description': 'Azure OpenAI embeddings + Azure AI Search vector similarity',
+    'recommendationFeed.method.gpt.label': 'GPT (OpenAI)',
+    'recommendationFeed.method.gpt.description': 'GPT-based with per-movie reasoning',
+    'recommendationFeed.error.grid': 'Failed to load recommendations. Please try a different method.',
+    'recommendationFeed.error.detailed': 'Failed to load detailed recommendations. Please try again.',
     'recommendationFeed.view.grid': 'Grid',
     'recommendationFeed.view.detailed': 'Detailed',
     'recommendationFeed.method.label': 'Method:',
@@ -281,6 +294,22 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
 
     // search bar
     'searchBar.placeholder': 'Пошук фільмів...',
+
+    // recommendation feed — method labels & descriptions
+    'recommendationFeed.method.claude.label': 'Claude (AI-аналіз)',
+    'recommendationFeed.method.claude.description': 'Claude з обґрунтуванням для кожного фільму',
+    'recommendationFeed.method.ml.label': 'Матрична факторизація (ML.NET)',
+    'recommendationFeed.method.ml.description': 'Модель матричної факторизації',
+    'recommendationFeed.method.content.label': 'На основі контенту',
+    'recommendationFeed.method.content.description': 'Схожість за жанрами, режисером та акторами',
+    'recommendationFeed.method.userCf.label': 'Колаборативна фільтрація',
+    'recommendationFeed.method.userCf.description': 'Кореляція Пірсона між користувачами',
+    'recommendationFeed.method.embedding.label': 'Azure Embeddings',
+    'recommendationFeed.method.embedding.description': 'Azure OpenAI embeddings + векторна схожість Azure AI Search',
+    'recommendationFeed.method.gpt.label': 'GPT (OpenAI)',
+    'recommendationFeed.method.gpt.description': 'GPT з обґрунтуванням для кожного фільму',
+    'recommendationFeed.error.grid': 'Не вдалося завантажити рекомендації. Спробуйте інший метод.',
+    'recommendationFeed.error.detailed': 'Не вдалося завантажити детальні рекомендації. Спробуйте ще раз.',
 
     // recommendation feed
     'recommendationFeed.heading': 'Рекомендовані фільми для вас',

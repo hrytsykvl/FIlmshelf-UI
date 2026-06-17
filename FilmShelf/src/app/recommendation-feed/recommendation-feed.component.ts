@@ -8,11 +8,12 @@ import { LlmRecommendation } from '../models/llm-recommendation';
 import { MovieComponent } from '../movie/movie.component';
 import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
 import { TranslatePipe } from '../pipes/translate.pipe';
+import { LanguageService } from '../services/language.service';
 
 interface RecommendationMethod {
   value: string;
-  label: string;
-  description: string;
+  labelKey: string;
+  descriptionKey: string;
   llmProvider?: LlmProvider;
 }
 
@@ -38,39 +39,39 @@ export class RecommendationFeedComponent implements OnInit {
   readonly methods: RecommendationMethod[] = [
     {
       value: 'llm',
-      label: 'Claude (AI reasoning)',
-      description: 'Claude-based with per-movie reasoning',
+      labelKey: 'recommendationFeed.method.claude.label',
+      descriptionKey: 'recommendationFeed.method.claude.description',
       llmProvider: 'claude',
     },
     {
       value: 'ml',
-      label: 'Matrix Factorization (ML.NET)',
-      description: 'Matrix factorization model',
+      labelKey: 'recommendationFeed.method.ml.label',
+      descriptionKey: 'recommendationFeed.method.ml.description',
     },
     {
       value: 'content',
-      label: 'Content-based',
-      description: 'Genres, director and actors similarity',
+      labelKey: 'recommendationFeed.method.content.label',
+      descriptionKey: 'recommendationFeed.method.content.description',
     },
     {
       value: 'user-cf',
-      label: 'User Collaborative Filtering',
-      description: 'Pearson correlation between users',
+      labelKey: 'recommendationFeed.method.userCf.label',
+      descriptionKey: 'recommendationFeed.method.userCf.description',
     },
     {
       value: 'embedding',
-      label: 'Azure Embeddings',
-      description: 'Azure OpenAI embeddings + Azure AI Search vector similarity',
+      labelKey: 'recommendationFeed.method.embedding.label',
+      descriptionKey: 'recommendationFeed.method.embedding.description',
     },
     {
       value: 'llama',
-      label: 'GPT (OpenAI)',
-      description: 'GPT-based with per-movie reasoning',
+      labelKey: 'recommendationFeed.method.gpt.label',
+      descriptionKey: 'recommendationFeed.method.gpt.description',
       llmProvider: 'ollama',
     },
   ];
 
-  constructor(private movieService: MovieService, private router: Router) {}
+  constructor(private movieService: MovieService, private router: Router, private languageService: LanguageService) {}
 
   ngOnInit(): void {
     this.loadRecommendations();
@@ -83,10 +84,8 @@ export class RecommendationFeedComponent implements OnInit {
   }
 
   get selectedMethodDescription(): string {
-    return (
-      this.methods.find((m) => m.value === this.selectedMethod)?.description ??
-      ''
-    );
+    const key = this.methods.find((m) => m.value === this.selectedMethod)?.descriptionKey ?? '';
+    return key ? this.languageService.translate(key) : '';
   }
 
   setViewMode(mode: ViewMode): void {
@@ -145,8 +144,7 @@ export class RecommendationFeedComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching recommended movies:', error);
-        this.errorMessage =
-          'Failed to load recommendations. Please try a different method.';
+        this.errorMessage = this.languageService.translate('recommendationFeed.error.grid');
         this.isLoading = false;
       },
     });
@@ -167,8 +165,7 @@ export class RecommendationFeedComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching LLM recommendations:', error);
-        this.errorMessage =
-          'Failed to load detailed recommendations. Please try again.';
+        this.errorMessage = this.languageService.translate('recommendationFeed.error.detailed');
         this.isLoading = false;
       },
     });
