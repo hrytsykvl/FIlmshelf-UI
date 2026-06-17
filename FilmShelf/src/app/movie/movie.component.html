@@ -17,7 +17,7 @@
     <img [src]="movie().posterPath" [alt]="movie().title" />
     <p class="movie-title">{{ movie().title }}</p>
     @if(role()){
-    <p>Role: {{ role() }}</p>
+    <p>{{ 'movie.role.prefix' | translate }} {{ role() }}</p>
     } @if(rating()){
     <div class="rating">
       <star-solid-icon class="star-icon" />

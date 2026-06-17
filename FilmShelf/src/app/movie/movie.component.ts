@@ -7,11 +7,13 @@ import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { updateMovieInWatchlist } from '../helpers/watchlist-helper';
 import { DEFAULT_WATCHLIST_ID_KEY } from '../constants/constants';
 import { CONFIRM_MESSAGES } from '../constants/messages';
+import { TranslatePipe } from '../pipes/translate.pipe';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-movie',
   standalone: true,
-  imports: [CommonModule, NgHeroiconsModule, RouterLink],
+  imports: [CommonModule, NgHeroiconsModule, RouterLink, TranslatePipe],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.scss',
 })
@@ -24,7 +26,10 @@ export class MovieComponent {
   movieRemoved = output<number>();
   @Input() inWatchlist: boolean = false;
 
-  constructor(private watchlistService: WatchlistService) {}
+  constructor(
+    private watchlistService: WatchlistService,
+    private languageService: LanguageService
+  ) {}
 
   onMovieClicked() {
     if (this.movie) {
@@ -34,7 +39,9 @@ export class MovieComponent {
 
   removeFromWatchlist(movieId: number, watchlistId?: number) {
     if (this.watchlistId()){
-      const isConfirmed = confirm(CONFIRM_MESSAGES.DELETE_MOVIE_CONFIRM);
+      const isConfirmed = confirm(
+        this.languageService.translate('confirm.deleteMovieFromList')
+      );
       if (!isConfirmed) {
         return;
       }

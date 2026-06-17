@@ -17,6 +17,7 @@ import {
 } from 'rxjs';
 import { MovieService } from '../services/movie.service';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -30,6 +31,7 @@ export class SearchBarComponent {
   movieSelected = output<MovieResponse>();
 
   private movieService = inject(MovieService);
+  private languageService = inject(LanguageService);
 
   searchControl = new FormControl('');
   movies: WritableSignal<MovieResponse[]> = signal([]);
@@ -52,7 +54,7 @@ export class SearchBarComponent {
     this.searchSubject
       .pipe(
         debounceTime(300),
-        switchMap((query) => this.movieService.searchMovies(query)),
+        switchMap((query) => this.movieService.searchMovies(query, this.languageService.language())),
         takeUntil(this.destroy$)
       )
       .subscribe((results) => {

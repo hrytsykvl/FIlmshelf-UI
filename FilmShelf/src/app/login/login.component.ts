@@ -21,11 +21,12 @@ import { SignalRService } from '../services/signal-r.service';
 import { AppComponent } from '../app.component';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { GoogleAuthService } from '../services/google-auth.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, GoogleSigninButtonModule],
+  imports: [ReactiveFormsModule, RouterLink, GoogleSigninButtonModule, TranslatePipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

@@ -11,10 +11,10 @@
 
         <div class="notification-menu" *ngIf="isNotificationMenuVisible">
           <div class="notification-menu-header">
-            <h3>Notifications</h3>
+            <h3>{{ 'navbar.notifications.heading' | translate }}</h3>
             @if(unreadNotificationsCount() > 0) {
             <button class="clear-button" (click)="deleteAllNotifications()">
-              Clear all
+              {{ 'navbar.notifications.clearAll' | translate }}
               <archive-box-solid-icon />
             </button>
             }
@@ -34,36 +34,39 @@
       <button class="menu-toggle" (click)="toggleMenu()">
         <bars-3-outline-icon />
       </button>
+      <button class="lang-toggle" (click)="languageService.toggleLanguage()">
+        {{ languageService.language() === 'en-US' ? 'EN' : 'UA' }}
+      </button>
     </div>
     <ul class="nav-links" [class.menu-visible]="isMenuVisible">
       <li>
         <a [routerLink]="['/movies/popular']" routerLinkActive="nav-active">
-          Popular
+          {{ 'navbar.nav.popular' | translate }}
         </a>
       </li>
       <li>
-        <a [routerLink]="['/movies']" routerLinkActive="nav-active">Movies</a>
+        <a [routerLink]="['/movies']" routerLinkActive="nav-active">{{ 'navbar.nav.movies' | translate }}</a>
       </li>
       <li>
         <a
           [routerLink]="['/movies/recommendation-feed']"
           routerLinkActive="nav-active"
         >
-          For You
+          {{ 'navbar.nav.forYou' | translate }}
         </a>
       </li>
       @if(!accountService.isLoggedIn) {
       <li>
-        <a [routerLink]="['/login']">Login</a>
+        <a [routerLink]="['/login']">{{ 'navbar.nav.login' | translate }}</a>
       </li>
       <li>
-        <a [routerLink]="['/register']">Register</a>
+        <a [routerLink]="['/register']">{{ 'navbar.nav.register' | translate }}</a>
       </li>
       } @else {
       <li>
         <a [routerLink]="['/watchlist']" class="watchlist">
           <bookmark-solid-icon class="bookmark-icon" />
-          Watchlist
+          {{ 'navbar.nav.watchlist' | translate }}
         </a>
       </li>
       <li
@@ -74,10 +77,10 @@
         <user-circle-solid-icon class="user-icon" />
 
         <div class="dropdown-menu" [class.open]="isDropdownOpen">
-          <a [routerLink]="['/watchlist']">Your watchlist</a>
-          <a [routerLink]="['/lists']">Your lists</a>
-          <a [routerLink]="['/reviews']">Your reviews</a>
-          <a (click)="onLogOutClicked()">Logout</a>
+          <a [routerLink]="['/watchlist']">{{ 'navbar.dropdown.yourWatchlist' | translate }}</a>
+          <a [routerLink]="['/lists']">{{ 'navbar.dropdown.yourLists' | translate }}</a>
+          <a [routerLink]="['/reviews']">{{ 'navbar.dropdown.yourReviews' | translate }}</a>
+          <a (click)="onLogOutClicked()">{{ 'navbar.dropdown.logout' | translate }}</a>
         </div>
       </li>
       }

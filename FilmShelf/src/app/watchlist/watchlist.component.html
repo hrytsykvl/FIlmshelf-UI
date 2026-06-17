@@ -1,14 +1,14 @@
 <div class="user-watchlist">
   <h2>{{watchlist()?.title}}</h2>
   <p class="last-added">
-    Last Added: {{ watchlist()?.updatedAt + "Z" | date : "medium" }}
+    {{ 'watchlist.lastAdded' | translate }} {{ watchlist()?.updatedAt + "Z" | date : "medium" }}
   </p>
   <div class="sort-figure">
     <p class="total-titles">{{ watchlist()?.totalMovies }} titles</p>
     <select class="sort-options" (change)="sortMovies($event)">
-      <option value="default" disabled selected>Sort by...</option>
-      <option value="title">Title</option>
-      <option value="averageRating">Rating</option>
+      <option value="default" disabled selected>{{ 'watchlist.sortBy.placeholder' | translate }}</option>
+      <option value="title">{{ 'watchlist.sortBy.title' | translate }}</option>
+      <option value="averageRating">{{ 'watchlist.sortBy.rating' | translate }}</option>
     </select>
   </div>
   <div class="watchlist">

@@ -4,14 +4,14 @@
     class="notification-content"
   >
     <b>{{ notification().reviewResponse!.userName }}</b>
-    responded to your review on <b>{{ notification().movieTitle }}:</b>
+    {{ 'notification.respondedTo' | translate }} <b>{{ notification().movieTitle }}:</b>
     <br />
     {{ notification().reviewResponse!.content | slice : 0 : 100 }}
     @if(notification().reviewResponse!.content.length > 100){ ... }
   </p>
   <ng-template #alternateText>
     <p class="notification-content">
-      <b>Check out today's top trending films!</b>
+      <b>{{ 'notification.trending' | translate }}</b>
     </p>
   </ng-template>
   <div class="notification-footer">

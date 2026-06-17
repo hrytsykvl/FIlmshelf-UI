@@ -9,11 +9,12 @@ import { NotificationService } from './services/notification.service';
 import { AccountService } from './services/account.service';
 import { TOKEN_KEY } from './constants/constants';
 import { MovieNotification } from './models/movie-notification';
+import { TranslatePipe } from './pipes/translate.pipe';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, CommonModule, NgHeroiconsModule],
+  imports: [RouterOutlet, NavbarComponent, CommonModule, NgHeroiconsModule, TranslatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

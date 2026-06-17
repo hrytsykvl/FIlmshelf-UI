@@ -3,7 +3,7 @@
     [disabled]="currentPage() === 1"
     (click)="goToPage(currentPage() - 1)"
   >
-    Previous
+    {{ 'pagination.button.previous' | translate }}
   </button>
 
   <button
@@ -38,6 +38,6 @@
     [disabled]="currentPage() === totalPages()"
     (click)="goToPage(currentPage() + 1)"
   >
-    Next
+    {{ 'pagination.button.next' | translate }}
   </button>
 </div>

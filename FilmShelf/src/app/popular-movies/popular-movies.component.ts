@@ -5,11 +5,12 @@ import { MovieComponent } from '../movie/movie.component';
 import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-popular-movies',
   standalone: true,
-  imports: [MovieComponent, CommonModule],
+  imports: [MovieComponent, CommonModule, TranslatePipe],
   templateUrl: './popular-movies.component.html',
   styleUrl: './popular-movies.component.scss',
 })

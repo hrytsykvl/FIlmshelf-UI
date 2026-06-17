@@ -7,6 +7,7 @@ import { MovieResponse } from '../models/movie-response';
 import { LlmRecommendation } from '../models/llm-recommendation';
 import { MovieComponent } from '../movie/movie.component';
 import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 interface RecommendationMethod {
   value: string;
@@ -20,7 +21,7 @@ type ViewMode = 'grid' | 'detailed';
 @Component({
   selector: 'app-recommendation-feed',
   standalone: true,
-  imports: [CommonModule, FormsModule, MovieComponent],
+  imports: [CommonModule, FormsModule, MovieComponent, TranslatePipe],
   templateUrl: './recommendation-feed.component.html',
   styleUrl: './recommendation-feed.component.scss',
 })

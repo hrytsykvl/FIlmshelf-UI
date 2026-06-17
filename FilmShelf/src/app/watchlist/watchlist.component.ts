@@ -5,11 +5,12 @@ import { WatchlistService } from '../services/watchlist.service';
 import { MovieComponent } from '../movie/movie.component';
 import { CommonModule } from '@angular/common';
 import { WatchlistMovie } from '../models/watchlist-movie';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-watchlist',
   standalone: true,
-  imports: [MovieComponent, CommonModule],
+  imports: [MovieComponent, CommonModule, TranslatePipe],
   templateUrl: './watchlist.component.html',
   styleUrl: './watchlist.component.scss',
 })

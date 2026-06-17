@@ -15,11 +15,13 @@ import { TOKEN_KEY } from '../constants/constants';
 import { getUserIdFromToken } from '../helpers/auth-helper';
 import { CONFIRM_MESSAGES } from '../constants/messages';
 import { AccountService } from '../services/account.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [CommonModule, ReviewComponent, ReactiveFormsModule],
+  imports: [CommonModule, ReviewComponent, ReactiveFormsModule, TranslatePipe],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.scss',
 })
@@ -38,7 +40,8 @@ export class ReviewsComponent implements OnInit {
     private fb: FormBuilder,
     private reviewService: ReviewService,
     private route: ActivatedRoute,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private languageService: LanguageService
   ) {
     this.reviewForm = this.fb.group({
       content: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -90,7 +93,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   deleteReview(reviewId: number): void {
-    if (confirm(CONFIRM_MESSAGES.DELETE_REVIEW_CONFIRM)) {
+    if (confirm(this.languageService.translate('confirm.deleteReview'))) {
       this.reviewService.deleteReview(reviewId).subscribe(() => {
         this.reviews = this.reviews.filter((r) => r.id !== reviewId);
         this.hasReviewed = false;

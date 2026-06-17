@@ -8,7 +8,7 @@
     <div class="actor-info">
       <h1 class="actor-name">{{ actorDetails?.name }}</h1>
       <div class="actor-bio">
-        <strong>Biography:</strong>
+        <strong>{{ 'actorDetails.label.biography' | translate }}</strong>
         <div>
           <p [innerHTML]="firstParagraph"></p>
         </div>
@@ -22,12 +22,12 @@
           (click)="toggleCollapse()"
           class="read-more-btn"
         >
-          {{ isCollapsed ? "Read More" : "Show Less" }}
+          {{ isCollapsed ? ('actorDetails.button.readMore' | translate) : ('actorDetails.button.showLess' | translate) }}
         </button>
       </div>
       <p>
         <span
-          ><strong>Birth Date:</strong>
+          ><strong>{{ 'actorDetails.label.birthDate' | translate }}</strong>
           {{ actorDetails?.birthDate | date }}</span
         >
       </p>
@@ -37,7 +37,7 @@
   <div class="separator"></div>
 
   <div class="movie-cast">
-    <h2>Movies {{ actorDetails?.name }} star in</h2>
+    <h2>{{ 'actorDetails.movies.heading' | translate:{name: actorDetails?.name ?? ''} }}</h2>
     <div class="movie-list">
       <app-movie
         *ngFor="let movie of actorDetails?.movies"

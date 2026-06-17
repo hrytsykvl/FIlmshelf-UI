@@ -3,11 +3,12 @@ import { CustomNotification } from '../models/custom-notification';
 import { CommonModule } from '@angular/common';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [NgHeroiconsModule, CommonModule],
+  imports: [NgHeroiconsModule, CommonModule, TranslatePipe],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.scss',
 })

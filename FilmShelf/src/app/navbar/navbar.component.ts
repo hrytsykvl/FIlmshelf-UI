@@ -9,6 +9,8 @@ import { NotificationComponent } from '../notification/notification.component';
 import { AppComponent } from '../app.component';
 import { GoogleAuthService } from '../services/google-auth.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { LanguageService } from '../services/language.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +21,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     NgHeroiconsModule,
     CommonModule,
     NotificationComponent,
+    TranslatePipe,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
@@ -38,7 +41,8 @@ export class NavbarComponent implements OnInit {
     private notificationService: NotificationService,
     private appComponent: AppComponent,
     private googleAuthService: GoogleAuthService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    public languageService: LanguageService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

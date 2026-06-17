@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss'
 })

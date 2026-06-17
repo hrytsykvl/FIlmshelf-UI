@@ -8,11 +8,12 @@ import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { FormsModule } from '@angular/forms';
 import { WATCHLIST_KEY } from '../constants/constants';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-custom-list-details',
   standalone: true,
-  imports: [MovieComponent, CommonModule, NgHeroiconsModule, FormsModule],
+  imports: [MovieComponent, CommonModule, NgHeroiconsModule, FormsModule, TranslatePipe],
   templateUrl: './custom-list-details.component.html',
   styleUrl: './custom-list-details.component.scss',
 })

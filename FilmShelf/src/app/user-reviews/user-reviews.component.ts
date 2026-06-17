@@ -6,11 +6,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UpdateReviewRequest } from '../models/update-review-request';
 import { CONFIRM_MESSAGES } from '../constants/messages';
+import { TranslatePipe } from '../pipes/translate.pipe';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-user-reviews',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, TranslatePipe],
   templateUrl: './user-reviews.component.html',
   styleUrl: './user-reviews.component.scss',
 })
@@ -23,7 +25,8 @@ export class UserReviewsComponent implements OnInit {
   constructor(
     private reviewService: ReviewService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +74,7 @@ export class UserReviewsComponent implements OnInit {
   }
 
   deleteReview(reviewId: number): void {
-    if (confirm(CONFIRM_MESSAGES.DELETE_REVIEW_CONFIRM)) {
+    if (confirm(this.languageService.translate('confirm.deleteReview'))) {
       this.reviewService.deleteReview(reviewId).subscribe(() => {
         this.reviews = this.reviews.filter((review) => review.id !== reviewId);
       });

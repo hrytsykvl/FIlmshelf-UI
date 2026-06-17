@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgHeroiconsModule } from '@dimaslz/ng-heroicons';
 import { RouterLink } from '@angular/router';
 import { CONFIRM_MESSAGES } from '../constants/messages';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-custom-list',
@@ -19,7 +20,10 @@ export class CustomListComponent implements OnInit {
   firstMoviePoster: string = '';
   deleteClicked = output<number>();
 
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit(): void {
     if (this.movieIds().length > 0) {
@@ -32,7 +36,7 @@ export class CustomListComponent implements OnInit {
   }
 
   onDeleteClicked() {
-    const isConfirmed = confirm(CONFIRM_MESSAGES.DELETE_LIST_CONFIRM);
+    const isConfirmed = confirm(this.languageService.translate('confirm.deleteList'));
     if (isConfirmed) {
       this.deleteClicked.emit(this.watchlistId());
     }

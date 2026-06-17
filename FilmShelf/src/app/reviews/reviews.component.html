@@ -1,34 +1,34 @@
 <div class="reviews-container">
   <div class="reviews-header">
-    <h1>Reviews</h1>
+    <h1>{{ 'reviews.heading' | translate }}</h1>
     <div>
       <button
         class="add-review-button"
         (click)="toggleReviewForm()"
         [disabled]="!isLoggedIn || hasReviewed"
       >
-        Add Review
+        {{ 'reviews.button.addReview' | translate }}
       </button>
       <p *ngIf="!isLoggedIn" class="message">
-        Please log in to leave a review.
+        {{ 'reviews.message.loginRequired' | translate }}
       </p>
       <p *ngIf="hasReviewed" class="message">
-        You have already reviewed this movie
+        {{ 'reviews.message.alreadyReviewed' | translate }}
       </p>
     </div>
   </div>
 
   <div class="add-review-form" *ngIf="showReviewForm">
     <form [formGroup]="reviewForm" (submit)="submitReview()">
-      <label for="content">Review Content:</label>
+      <label for="content">{{ 'reviews.form.label.content' | translate }}</label>
       <textarea
         id="content"
         formControlName="content"
         rows="4"
-        placeholder="Write your review here..."
+        [placeholder]="'reviews.form.placeholder.content' | translate"
       ></textarea>
       <div class="rating-stars">
-        <label for="rating">Rating:</label>
+        <label for="rating">{{ 'reviews.form.label.rating' | translate }}</label>
         <div>
           <ng-container *ngFor="let star of stars; let index = index">
             <i
@@ -46,13 +46,13 @@
         type="submit"
         [disabled]="reviewForm.invalid"
       >
-        Submit Review
+       {{ 'reviews.form.button.submit' | translate }}
       </button>
     </form>
   </div>
   <div class="reviews-list">
     @if(reviews.length === 0) {
-      <p>No reviews yet</p>
+     <p>{{ 'reviews.empty' | translate }}</p>
       }
     <app-review
       *ngFor="let review of reviews"

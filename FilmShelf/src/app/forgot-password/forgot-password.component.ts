@@ -11,11 +11,12 @@ import { ForgotPassword } from '../models/forgot-password';
 import { PasswordResponse } from '../models/password-response';
 import { URL_RESET_PASSWORD } from '../constants/reset-password.url';
 import { ERROR_MESSAGES } from '../constants/messages';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
 })

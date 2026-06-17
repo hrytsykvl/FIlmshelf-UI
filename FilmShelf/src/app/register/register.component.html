@@ -1,12 +1,12 @@
 <div class="w-75">
     <div class="form-container">
   
-      <h2>Register</h2>
+      <h2>{{ 'register.heading' | translate }}</h2>
   
       <form [formGroup]="registerForm" (ngSubmit)="registerSubmitted()">
         <div class="form-field flex">
           <div class="w-25">
-            <label for="personName" class="form-label pt">Person Name</label>
+            <label for="personName" class="form-label pt">{{ 'register.label.personName' | translate }}</label>
           </div>
   
           <div class="flex-1">
@@ -14,14 +14,14 @@
             @if((personNameControl?.touched 
             || isRegisterFormSubmitted) 
             && (personNameControl?.errors?.['required'])){
-                <span class="text-red">{{ validationErrorMessages.PERSON_NAME_REQUIRED }}</span>
+                <span class="text-red">{{ 'errors.personNameRequired' | translate }}</span>
             }
           </div>
         </div>
   
         <div class="form-field flex">
           <div class="w-25">
-            <label for="email" class="form-label pt">Email</label>
+            <label for="email" class="form-label pt">{{ 'register.label.email' | translate }}</label>
           </div>
   
         <div class="flex-1">
@@ -29,20 +29,20 @@
             @if((emailControl?.touched 
             || isRegisterFormSubmitted) 
             && (emailControl?.errors?.['required'])){
-                <span class="text-red">{{ validationErrorMessages.EMAIL_REQUIRED }}</span>
+                <span class="text-red">{{ 'errors.emailRequired' | translate }}</span>
             }
             
             @if((emailControl?.touched 
             || isRegisterFormSubmitted) 
             && (emailControl?.errors?.['email'])){
-                <span class="text-red">{{ validationErrorMessages.EMAIL_INVALID }}</span>
+                <span class="text-red">{{ 'errors.emailInvalid' | translate }}</span>
             }
           </div>
         </div>
   
         <div class="form-field flex">
           <div class="w-25">
-            <label for="password" class="form-label pt">Password</label>
+            <label for="password" class="form-label pt">{{ 'register.label.password' | translate }}</label>
           </div>
   
           <div class="flex-1">
@@ -50,14 +50,14 @@
             @if((passwordControl?.touched 
             || isRegisterFormSubmitted) 
             && (passwordControl?.errors?.['required'])){
-                <span class="text-red">{{ validationErrorMessages.PASSWORD_REQUIRED }}</span>
+                <span class="text-red">{{ 'errors.passwordRequired' | translate }}</span>
             }
           </div>
         </div>
   
         <div class="form-field flex">
           <div class="w-25">
-            <label for="confirmationPassword" class="form-label pt">Confirm Password</label>
+            <label for="confirmationPassword" class="form-label pt">{{ 'register.label.confirmPassword' | translate }}</label>
           </div>
   
           <div class="flex-1">
@@ -65,12 +65,12 @@
             @if((confirmationPasswordControl?.touched 
             || isRegisterFormSubmitted) 
             && (confirmationPasswordControl?.errors?.['required'])){
-                <span class="text-red">{{ validationErrorMessages.CONFIRM_PASSWORD_REQUIRED }}</span>
+                <span class="text-red">{{ 'errors.confirmPasswordRequired' | translate }}</span>
             }
             @if((confirmationPasswordControl?.touched 
             || isRegisterFormSubmitted) 
             && (confirmationPasswordControl?.errors?.['compareValidator'])){
-                <span class="text-red">{{ validationErrorMessages.PASSWORD_MISMATCH }}</span>
+                <span class="text-red">{{ 'errors.passwordMismatch' | translate }}</span>
             }
           </div>
         </div>
@@ -84,7 +84,7 @@
               type="submit" 
               class="button button-green-back" 
               [disabled]="isRegisterInProgress || !hasFormChanged()">
-              Register
+              {{ 'register.button.submit' | translate }}
             </button>
             <asl-google-signin-button
               type="standard"

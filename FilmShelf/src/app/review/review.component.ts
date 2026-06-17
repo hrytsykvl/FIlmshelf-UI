@@ -19,11 +19,13 @@ import { ReviewResponseAddRequest } from '../models/review-response-add-request'
 import { UpdateReviewRequest } from '../models/update-review-request';
 import { ActivatedRoute } from '@angular/router';
 import { CONFIRM_MESSAGES } from '../constants/messages';
+import { TranslatePipe } from '../pipes/translate.pipe';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [CommonModule, NgHeroiconsModule, ReactiveFormsModule],
+  imports: [CommonModule, NgHeroiconsModule, ReactiveFormsModule, TranslatePipe],
   templateUrl: './review.component.html',
   styleUrl: './review.component.scss',
 })
@@ -45,7 +47,8 @@ export class ReviewComponent implements OnInit, AfterViewChecked {
   constructor(
     private fb: FormBuilder,
     private reviewService: ReviewService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private languageService: LanguageService
   ) {
     this.replyForm = this.fb.group({
       content: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -153,7 +156,7 @@ export class ReviewComponent implements OnInit, AfterViewChecked {
   }
 
   deleteResponse(responseId: number) {
-    if (confirm(CONFIRM_MESSAGES.DELETE_RESPONSE_CONFIRM)) {
+    if (confirm(this.languageService.translate('confirm.deleteResponse'))) {
       this.reviewService.deleteReviewResponse(responseId).subscribe(() => {
         this.review().responses = this.review().responses.filter(
           (r) => r.id !== responseId

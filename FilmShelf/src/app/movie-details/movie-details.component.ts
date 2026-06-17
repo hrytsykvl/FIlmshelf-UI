@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import {
   ActivatedRoute,
@@ -20,6 +20,8 @@ import {
   DEFAULT_WATCHLIST_ID_KEY,
   WATCHLIST_KEY,
 } from '../constants/constants';
+import { LanguageService } from '../services/language.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-movie-details',
@@ -30,6 +32,7 @@ import {
     NgHeroiconsModule,
     RouterLink,
     RouterOutlet,
+    TranslatePipe,
   ],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.scss',
@@ -50,8 +53,16 @@ export class MovieDetailsComponent implements OnInit {
     private movieService: MovieService,
     private watchlistService: WatchlistService,
     private accountService: AccountService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private languageService: LanguageService
+  ) {
+    effect(() => {
+      const _ = this.languageService.language();
+      if (this.movieId) {
+        this.loadMovieDetails();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -60,11 +71,7 @@ export class MovieDetailsComponent implements OnInit {
       const statusMap = checkMoviesInWatchlist([this.movieId]);
       this.inWatchlist = statusMap[this.movieId] || false;
 
-      this.movieService.findMovie(this.movieId).subscribe({
-        next: (response: MovieDetailsResponse) => {
-          this.movieDetails = response;
-        },
-      });
+      this.loadMovieDetails();
     });
 
     this.route.queryParamMap.subscribe((queryParams) => {
@@ -75,6 +82,14 @@ export class MovieDetailsComponent implements OnInit {
     });
 
     this.loadUserLists();
+  }
+
+  private loadMovieDetails(): void {
+    this.movieService.findMovie(this.movieId, this.languageService.language()).subscribe({
+      next: (response: MovieDetailsResponse) => {
+        this.movieDetails = response;
+      },
+    });
   }
 
   toggleWatchlist(): void {
@@ -163,7 +178,10 @@ export class MovieDetailsComponent implements OnInit {
     const hours = Math.floor(time / 60);
     const minutes = time % 60;
 
-    return `${hours} hours ${minutes} minutes`;
+    return this.languageService.translate('movieDetails.runtime', {
+      hours,
+      minutes,
+    });
   }
 
   navigateToList(event: Event, listId: number): void {

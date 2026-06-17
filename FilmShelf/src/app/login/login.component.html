@@ -1,12 +1,12 @@
 <div class="w-75">
     <div class="form-container">
   
-      <h2>Login</h2>
+      <h2>{{ 'login.heading' | translate }}</h2>
   
       <form [formGroup]="loginForm" (ngSubmit)="loginSubmitted()">
         <div class="form-field flex">
           <div class="w-25">
-            <label for="email" class="form-label pt">Email</label>
+            <label for="email" class="form-label pt">{{ 'login.label.email' | translate }}</label>
           </div>
   
         <div class="flex-1">
@@ -14,20 +14,20 @@
             @if((emailControl?.touched 
             || isLoginFormSubmitted) 
             && (emailControl?.errors?.['required'])){
-                <span class="text-red">{{ validationErrorMessages.EMAIL_REQUIRED }}</span>
+                <span class="text-red">{{ 'errors.emailRequired' | translate }}</span>
             }
             
             @if((emailControl?.touched 
             || isLoginFormSubmitted) 
             && (emailControl?.errors?.['email'])){
-                <span class="text-red">{{ validationErrorMessages.EMAIL_INVALID }}</span>
+                <span class="text-red">{{ 'errors.emailInvalid' | translate }}</span>
             }
           </div>
         </div>
   
         <div class="form-field flex">
           <div class="w-25">
-            <label for="password" class="form-label pt">Password</label>
+            <label for="password" class="form-label pt">{{ 'login.label.password' | translate }}</label>
           </div>
   
           <div class="flex-1">
@@ -35,9 +35,9 @@
             @if((passwordControl?.touched 
             || isLoginFormSubmitted) 
             && (passwordControl?.errors?.['required'])){
-                <span class="text-red">{{ validationErrorMessages.PASSWORD_REQUIRED }}</span>
+                <span class="text-red">{{ 'errors.passwordRequired' | translate }}</span>
             }
-            <a class="forgot-password" [routerLink]="['/forgot-password']">Forgot Password?</a>
+            <a class="forgot-password" [routerLink]="['/forgot-password']">{{ 'login.link.forgotPassword' | translate }}</a>
             
           </div>
         </div>
@@ -51,7 +51,7 @@
               type="submit" 
               class="button button-green-back" 
               [disabled]="isLoginInProgress || !hasFormChanged()">
-              Login
+              {{ 'login.button.submit' | translate }}
             </button>
 
           <asl-google-signin-button

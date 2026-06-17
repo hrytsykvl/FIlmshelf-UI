@@ -11,7 +11,7 @@
     @if(isYourReview()){
     <div class="review-actions">
       <button class="button edit-button" (click)="editReview()">
-        <span>Edit</span>
+        <span>{{ 'review.button.edit' | translate }}</span>
         <pencil-square-outline-icon />
       </button>
       <button class="button delete-button" (click)="deleteReview()">
@@ -24,7 +24,7 @@
         <textarea
           class="edit-content"
           formControlName="content"
-          placeholder="Edit your review"
+          [placeholder]="'review.edit.placeholder' | translate"
         ></textarea>
         <div class="edit-rating-stars">
           <span
@@ -42,14 +42,14 @@
             type="submit"
             [disabled]="!isFormChanged()"
           >
-            Save
+            {{ 'review.edit.button.save' | translate }}
           </button>
           <button
             class="button cancel-button"
             type="button"
             (click)="cancelEdit()"
           >
-            Cancel
+            {{ 'review.edit.button.cancel' | translate }}
           </button>
         </div>
       </form>
@@ -71,7 +71,7 @@
     @if(!isYourReview() && isLoggedIn()){
     <div class="reply-button" (click)="toggleReplyForm()">
       <paper-airplane-outline-icon />
-      <span>Reply</span>
+      <span>{{ 'review.reply.button' | translate }}</span>
     </div>
     }
     <div
@@ -81,34 +81,34 @@
     >
       <chat-bubble-bottom-center-text-outline-icon />
       @if(showResponses){
-      <span>Hide Responses</span>
+      <span>{{ 'review.responses.hide' | translate }}</span>
       <chevron-right-outline-icon />
       }@else {
-      <span>Show Responses ({{ review().responses.length }})</span>
+      <span>{{ 'review.responses.show' | translate:{count: review().responses.length} }}</span>
       <chevron-down-outline-icon />
       }
     </div>
     <div class="reply-form" *ngIf="showReplyForm">
       <form [formGroup]="replyForm" (submit)="submitReply()">
-        <label for="reply-content">Reply:</label>
+        <label for="reply-content">{{ 'review.reply.label' | translate }}</label>
         <textarea
           id="reply-content"
           formControlName="content"
           rows="4"
-          placeholder="Write your reply here..."
+          [placeholder]="'review.reply.placeholder' | translate"
         ></textarea>
         <button
           class="submit-button"
           type="submit"
           [disabled]="replyForm.invalid"
         >
-          Submit Reply
+          {{ 'review.reply.button.submit' | translate }}
         </button>
       </form>
     </div>
   </div>
   <div class="responses" *ngIf="showResponses">
-    <h3>Responses</h3>
+    <h3>{{ 'review.responses.heading' | translate }}</h3>
     <div
       *ngFor="let response of review().responses"
       class="response"

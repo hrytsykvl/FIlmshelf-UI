@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { MovieListResponse } from '../models/movie-list-response';
 import { MovieService } from '../services/movie.service';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { MovieResponse } from '../models/movie-response';
+import { LanguageService } from '../services/language.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-movies',
@@ -17,6 +19,7 @@ import { MovieResponse } from '../models/movie-response';
     MovieComponent,
     PaginationComponent,
     SearchBarComponent,
+    TranslatePipe,
   ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss',
@@ -31,8 +34,16 @@ export class MoviesComponent implements OnInit {
   constructor(
     private movieService: MovieService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private languageService: LanguageService
+  ) {
+    effect(() => {
+      const _ = this.languageService.language();
+      if (this.currentPage) {
+        this.loadPage(this.currentPage);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -43,7 +54,7 @@ export class MoviesComponent implements OnInit {
   }
 
   loadPage(pageNumber: number): void {
-    this.movieService.page(pageNumber).subscribe({
+    this.movieService.page(pageNumber, this.languageService.language()).subscribe({
       next: (response) => {
         this.page = response;
         this.currentPage = pageNumber;

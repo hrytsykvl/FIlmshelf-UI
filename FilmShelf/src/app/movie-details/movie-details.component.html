@@ -8,26 +8,26 @@
     <div class="movie-info">
       <h1 class="movie-title">{{ movieDetails?.title }}</h1>
       <p class="movie-genres">
-        <strong>Genres:</strong> {{ movieDetails?.genres?.join(", ") }}
+        <strong>{{ 'movieDetails.label.genres' | translate }}</strong> {{ movieDetails?.genres?.join(", ") }}
       </p>
       <p class="movie-overview">
-        <strong>Overview:</strong>
+        <strong>{{ 'movieDetails.label.overview' | translate }}</strong>
         {{ movieDetails?.overview }}
       </p>
       <p class="movie-meta">
         <span
-          ><strong>Release Date:</strong>
+          ><strong>{{ 'movieDetails.label.releaseDate' | translate }}</strong>
           {{ movieDetails?.releaseDate | date }}</span
         >
         <span
-          ><strong>Runtime:</strong>
+          ><strong>{{ 'movieDetails.label.runtime' | translate }}</strong>
           {{ getFormattedTime(movieDetails!.runtime) }}</span
         >
-        <span><strong>Director:</strong> {{ movieDetails?.director }}</span>
+        <span><strong>{{ 'movieDetails.label.director' | translate }}</strong> {{ movieDetails?.director }}</span>
       </p>
       <p class="movie-rating">
-        <strong>Average Rating:</strong>
-        {{ movieDetails?.averageRating?.toFixed(2) }} / 10
+        <strong>{{ 'movieDetails.label.averageRating' | translate }}</strong>
+        {{ movieDetails?.averageRating?.toFixed(2) }} {{ 'movieDetails.rating.outOf' | translate }}
         <star-solid-icon class="star-icon" />
       </p>
       <div class="list-buttons">
@@ -39,19 +39,19 @@
         >
           @if(inWatchlist){
           <check-outline-icon />
-          <p>In watchlist</p>
+          <p>{{ 'movieDetails.watchlist.inWatchlist' | translate }}</p>
           } @else {
           <plus-outline-icon />
-          <p>Add to Watchlist</p>
+          <p>{{ 'movieDetails.watchlist.add' | translate }}</p>
           }
         </div>
         <div class="add-to-list-container">
           <button class="add-to-list-button" (click)="toggleListDropdown()">
-            Add to List
+            {{ 'movieDetails.list.addToList' | translate }}
           </button>
           <ul *ngIf="showListDropdown" class="list-dropdown">
             <li [routerLink]="['/create-list']">
-              <p>Create new list</p>
+              <p>{{ 'movieDetails.list.createNew' | translate }}</p>
               <chevron-right-outline-icon />
             </li>
             <li
@@ -78,7 +78,7 @@
   </div>
 
   <div class="movie-cast">
-    <h2>Cast</h2>
+    <h2>{{ 'movieDetails.cast.heading' | translate }}</h2>
     <div class="cast-list">
       <app-actor
         *ngFor="let actor of movieDetails?.cast"

@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MovieComponent } from '../movie/movie.component';
 import { checkMoviesInWatchlist } from '../helpers/watchlist-helper';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-recommended-movies',
   standalone: true,
-  imports: [CommonModule, MovieComponent],
+  imports: [CommonModule, MovieComponent, TranslatePipe],
   templateUrl: './recommended-movies.component.html',
   styleUrl: './recommended-movies.component.scss',
 })

@@ -4,11 +4,12 @@ import { AccountService } from '../services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResetPassword } from '../models/reset-password';
 import { PasswordResponse } from '../models/password-response';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })

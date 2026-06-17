@@ -9,11 +9,12 @@ import { WatchlistService } from '../services/watchlist.service';
 import { Router } from '@angular/router';
 import { UpsertWatchlistRequest } from '../models/upsert-watchlist-request';
 import { updateWatchlistStore } from '../helpers/watchlist-helper';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-create-list',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './create-list.component.html',
   styleUrl: './create-list.component.scss',
 })

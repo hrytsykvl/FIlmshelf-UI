@@ -1,16 +1,16 @@
 <div class="form-container">
-  <p class="create-title">Create New Watchlist</p>
+  <p class="create-title">{{ 'createList.heading' | translate }}</p>
 
   <form [formGroup]="newListForm" (ngSubmit)="addNewList()">
-    <label class="form-label" for="newListTitle">New Watchlist Title</label>
+    <label class="form-label" for="newListTitle">{{ 'createList.label.title' | translate }}</label>
     <input
       id="newListTitle"
       class="form-input"
       formControlName="title"
       maxlength="100"
-      placeholder="Enter list title"
+      [placeholder]="'createList.input.placeholder' | translate"
     />
 
-    <button class="create-button" type="submit" [disabled]="newListForm.invalid">Add List</button>
+    <button class="create-button" type="submit" [disabled]="newListForm.invalid">{{ 'createList.button.submit' | translate }}</button>
   </form>
 </div>

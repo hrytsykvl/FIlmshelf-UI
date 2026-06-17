@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { CastMember } from '../models/cast-member';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-actor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './actor.component.html',
   styleUrl: './actor.component.scss'
 })

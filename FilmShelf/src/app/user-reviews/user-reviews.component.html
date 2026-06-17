@@ -1,16 +1,16 @@
 <div class="reviews-container">
-  <h2>My Reviews</h2>
+  <h2>{{ 'userReviews.heading' | translate }}</h2>
   <div class="sort-container">
-    <label for="sortOptions">Sort by:</label>
+    <label for="sortOptions">{{ 'userReviews.sortBy.label' | translate }}</label>
     <select
       id="sortOptions"
       (change)="onSortChange($event)"
       class="sort-options"
       [value]="currentSort"
     >
-      <option value="title">Movie Title</option>
-      <option value="rating">User Rating</option>
-      <option value="date">Date Reviewed</option>
+      <option value="title">{{ 'userReviews.sortBy.movieTitle' | translate }}</option>
+      <option value="rating">{{ 'userReviews.sortBy.userRating' | translate }}</option>
+      <option value="date">{{ 'userReviews.sortBy.dateReviewed' | translate }}</option>
     </select>
   </div>
   <div *ngFor="let review of reviews" class="review">
@@ -20,27 +20,27 @@
       </a>
     </h3>
     <p class="review-date">
-      <strong>Date Reviewed:</strong> {{ review.createdAt + "Z" | date : "medium" }}
+      <strong>{{ 'userReviews.label.dateReviewed' | translate }}</strong> {{ review.createdAt + "Z" | date : "medium" }}
     </p>
-    <p class="review-content"><strong>Review:</strong> {{ review.content }}</p>
+    <p class="review-content"><strong>{{ 'userReviews.label.review' | translate }}</strong> {{ review.content }}</p>
     <p class="review-rating">
-      <strong>Rating ({{ review.rating }}/10):</strong>
+      <strong>{{ 'userReviews.label.rating' | translate:{rating: review.rating} }}</strong>
       <ng-container *ngFor="let star of stars; let index = index">
         <i class="star" [class.filled]="index < review.rating">★</i>
       </ng-container>
     </p>
     <div class="review-actions">
       <button (click)="toggleEditReviewForm(review)" class="edit-review-button">
-        Edit Review
+        {{ 'userReviews.button.edit' | translate }}
       </button>
       <button (click)="deleteReview(review.id)" class="delete-review-button">
-        Delete Review
+        {{ 'userReviews.button.delete' | translate }}
       </button>
     </div>
     <div *ngIf="editingReview?.id === review.id" class="edit-form">
       <textarea [(ngModel)]="editingReview!.content" rows="3"></textarea>
       <div class="rating-stars">
-        <label for="rating">Rating:</label>
+        <label for="rating">{{ 'userReviews.edit.label.rating' | translate }}</label>
         <div>
           <ng-container *ngFor="let star of stars; let index = index">
             <i
@@ -54,10 +54,10 @@
       </div>
       <div class="edit-review-actions">
         <button (click)="updateReview()" class="save-review-button">
-          Save
+          {{ 'userReviews.edit.button.save' | translate }}
         </button>
         <button (click)="cancelEdit()" class="cancel-review-button">
-          Cancel
+          {{ 'userReviews.edit.button.cancel' | translate }}
         </button>
       </div>
     </div>

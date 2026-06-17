@@ -14,8 +14,8 @@
       <img class="movie-poster" [src]="notification.moviePoster" />
       <div class="notification-content">
         <p>
-          <b>{{ notification.reviewResponse!.userName }}</b> responded to your
-          review on <b>{{ notification.movieTitle }}</b
+          <b>{{ notification.reviewResponse!.userName }}</b> {{ 'app.notification.respondedTo' | translate }}
+          <b>{{ notification.movieTitle }}</b
           >:
           <br />
           {{ notification.reviewResponse!.content | slice : 0 : 100 }}
@@ -34,7 +34,7 @@
       class="movie-notification"
     >
       <div class="notification-content">
-        <h3>New Movie Recommendations</h3>
+        <h3>{{ 'app.movieNotification.heading' | translate }}</h3>
         <div class="popular-movies">
           <div
             *ngFor="let movie of movieNotification.popularMovies"
@@ -47,8 +47,8 @@
             />
             <div class="movie-info">
               <h4>{{ movie.title }}</h4>
-              <p>Rating: {{ movie.averageRating.toFixed(1) }}</p>
-              <p>Release Date: {{ movie.releaseDate | date : "mediumDate" }}</p>
+              <p>{{ 'app.movieNotification.rating' | translate }} {{ movie.averageRating.toFixed(1) }}</p>
+              <p>{{ 'app.movieNotification.releaseDate' | translate }} {{ movie.releaseDate | date : "mediumDate" }}</p>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@
       class="edit-title-button"
       (click)="enableTitleEdit()"
     >
-      Edit Title
+      {{ 'customListDetails.button.editTitle' | translate }}
     </button>
     <div *ngIf="isEditingTitle" class="edit-title-actions">
       <button
@@ -21,15 +21,15 @@
         (click)="saveTitle()"
         [disabled]="newTitle === watchlist()?.title"
       >
-        Save
+        {{ 'customListDetails.button.save' | translate }}
       </button>
       <button class="cancel-title-button" (click)="cancelTitleEdit()">
-        Cancel
+        {{ 'customListDetails.button.cancel' | translate }}
       </button>
     </div>
   </div>
   <p class="last-added">
-    Last Added: {{ watchlist()?.updatedAt + "Z" | date : "medium" }}
+    {{ 'customListDetails.lastAdded' | translate }} {{ watchlist()?.updatedAt + "Z" | date : "medium" }}
   </p>
   <p class="total-titles">{{ watchlist()?.totalMovies }} titles</p>
   <div class="watchlist">

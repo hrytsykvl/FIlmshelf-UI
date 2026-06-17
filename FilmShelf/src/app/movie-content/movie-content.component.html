@@ -3,9 +3,9 @@
     routerLink="./"
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: true }"
-    >Movie</a
+    >{{ 'movieContent.tab.movie' | translate }}</a
   >
-  <a routerLink="reviews" routerLinkActive="active">Reviews</a>
+  <a routerLink="reviews" routerLinkActive="active">{{ 'movieContent.tab.reviews' | translate }}</a>
 </div>
 <div class="movie-content-container">
   <router-outlet></router-outlet>

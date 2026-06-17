@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { CustomListComponent } from '../custom-list/custom-list.component';
 import { WatchlistService } from '../services/watchlist.service';
 import { updateWatchlistStore } from '../helpers/watchlist-helper';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-custom-lists',
   standalone: true,
-  imports: [CommonModule, CustomListComponent, RouterLink],
+  imports: [CommonModule, CustomListComponent, RouterLink, TranslatePipe],
   templateUrl: './custom-lists.component.html',
   styleUrl: './custom-lists.component.scss',
 })

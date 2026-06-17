@@ -20,11 +20,12 @@ import {
 import { AppComponent } from '../app.component';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { GoogleAuthService } from '../services/google-auth.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, GoogleSigninButtonModule],
+  imports: [ReactiveFormsModule, GoogleSigninButtonModule, TranslatePipe],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })

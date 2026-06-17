@@ -1,9 +1,10 @@
 <div class="movies-container">
   <app-search-bar
+    [placeholder]="'searchBar.placeholder' | translate"
     (movieSelected)="onSearchMovieSelected($event)"
   ></app-search-bar>
 
-  <h2 class="title">Movies</h2>
+  <h2 class="title">{{ 'movies.heading' | translate }}</h2>
   <div class="page">
     <app-movie
       *ngFor="let movie of page?.movieList"

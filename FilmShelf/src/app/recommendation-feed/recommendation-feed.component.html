@@ -1,6 +1,6 @@
 <div class="feed-container">
   <div class="feed-header">
-    <h2 class="title">Movies recommended for you</h2>
+    <h2 class="title">{{ 'recommendationFeed.heading' | translate }}</h2>
 
     <div class="controls">
       <div class="view-toggle" role="group" aria-label="View mode">
@@ -10,7 +10,7 @@
           (click)="setViewMode('grid')"
           [disabled]="isLoading"
         >
-          Grid
+          {{ 'recommendationFeed.view.grid' | translate }}
         </button>
         <button
           type="button"
@@ -18,12 +18,12 @@
           (click)="setViewMode('detailed')"
           [disabled]="isLoading"
         >
-          Detailed
+          {{ 'recommendationFeed.view.detailed' | translate }}
         </button>
       </div>
 
       <div class="method-selector">
-        <label for="method-select">Method:</label>
+        <label for="method-select">{{ 'recommendationFeed.method.label' | translate }}</label>
         <select
           id="method-select"
           [(ngModel)]="selectedMethod"
@@ -41,7 +41,7 @@
   <p class="method-description">{{ selectedMethodDescription }}</p>
 
   <div *ngIf="isLoading" class="status-message">
-    Loading recommendations...
+    {{ 'recommendationFeed.status.loading' | translate }}
   </div>
 
   <div *ngIf="!isLoading && errorMessage" class="status-message error">
@@ -51,7 +51,7 @@
   <ng-container *ngIf="!isLoading && !errorMessage">
     <ng-container *ngIf="viewMode === 'grid'">
       <div *ngIf="recommendedMovies.length === 0" class="status-message">
-        No recommendations available for this method.
+        {{ 'recommendationFeed.status.noGrid' | translate }}
       </div>
 
       <div *ngIf="recommendedMovies.length > 0" class="page">
@@ -70,7 +70,7 @@
 
     <ng-container *ngIf="viewMode === 'detailed'">
       <div *ngIf="llmRecommendations.length === 0" class="status-message">
-        No detailed recommendations available.
+        {{ 'recommendationFeed.status.noDetailed' | translate }}
       </div>
 
       <div *ngIf="llmRecommendations.length > 0" class="detailed-list">
@@ -90,7 +90,7 @@
               <h3 class="movie-title" (click)="onMovieClick(item.movie.id)">
                 {{ item.movie.title }}
               </h3>
-              <span class="score-badge" title="Recommendation score">
+              <span class="score-badge" [attr.title]="'recommendationFeed.score.title' | translate">
                 {{ item.score | number: '1.0-2' }}
               </span>
             </div>
