@@ -111,6 +111,7 @@ export const TRANSLATIONS: Record<AppLanguage, Record<string, string>> = {
     'recommendationFeed.method.gpt.description': 'GPT-based with per-movie reasoning',
     'recommendationFeed.error.grid': 'Failed to load recommendations. Please try a different method.',
     'recommendationFeed.error.detailed': 'Failed to load detailed recommendations. Please try again.',
+    'recommendationFeed.heading': 'Movies recommended for you',
     'recommendationFeed.view.grid': 'Grid',
     'recommendationFeed.view.detailed': 'Detailed',
     'recommendationFeed.method.label': 'Method:',
