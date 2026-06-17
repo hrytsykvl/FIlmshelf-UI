@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -71,10 +71,15 @@ export class RecommendationFeedComponent implements OnInit {
     },
   ];
 
-  constructor(private movieService: MovieService, private router: Router, private languageService: LanguageService) {}
+  constructor(private movieService: MovieService, private router: Router, private languageService: LanguageService) {
+    effect(() => {
+      const _ = this.languageService.language();
+      this.loadRecommendations();
+    });
+  }
 
   ngOnInit(): void {
-    this.loadRecommendations();
+    // initial load handled by effect
   }
 
   get availableMethods(): RecommendationMethod[] {
@@ -134,7 +139,7 @@ export class RecommendationFeedComponent implements OnInit {
   }
 
   private loadGridRecommendations(): void {
-    this.movieService.retrieveRecommendedMovies(this.selectedMethod).subscribe({
+    this.movieService.retrieveRecommendedMovies(this.selectedMethod, this.languageService.language()).subscribe({
       next: (movies) => {
         this.recommendedMovies = movies;
         this.movieWatchlistStatus = checkMoviesInWatchlist(
@@ -155,7 +160,7 @@ export class RecommendationFeedComponent implements OnInit {
       this.methods.find((m) => m.value === this.selectedMethod)?.llmProvider ??
       'claude';
 
-    this.movieService.retrieveLlmRecommendations(provider).subscribe({
+    this.movieService.retrieveLlmRecommendations(provider, this.languageService.language()).subscribe({
       next: (items) => {
         this.llmRecommendations = items;
         this.movieWatchlistStatus = checkMoviesInWatchlist(

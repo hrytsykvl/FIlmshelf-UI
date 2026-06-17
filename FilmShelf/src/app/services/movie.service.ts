@@ -33,11 +33,12 @@ export class MovieService {
     return this.httpClient.get<MovieListResponse>(API_URL_MOVIES, { params });
   }
 
-  public retrieveRecommendedMovies(method?: string): Observable<MovieResponse[]> {
+  public retrieveRecommendedMovies(method?: string, language: AppLanguage = 'en-US'): Observable<MovieResponse[]> {
     let params = new HttpParams();
     if (method) {
       params = params.set('method', method);
     }
+    params = params.set('language', language);
     return this.httpClient.get<MovieResponse[]>(
       `${API_URL_MOVIES}/recommendations`,
       { params }
@@ -45,9 +46,10 @@ export class MovieService {
   }
 
   public retrieveLlmRecommendations(
-    provider: LlmProvider = 'claude'
+    provider: LlmProvider = 'claude',
+    language: AppLanguage = 'en-US'
   ): Observable<LlmRecommendation[]> {
-    const params = new HttpParams().set('provider', provider);
+    const params = new HttpParams().set('provider', provider).set('language', language);
     return this.httpClient.get<LlmRecommendation[]>(
       `${API_URL_MOVIES}/recommendations/llm`,
       { params }
