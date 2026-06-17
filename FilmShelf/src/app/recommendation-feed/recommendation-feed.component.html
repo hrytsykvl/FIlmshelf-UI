@@ -88,14 +88,14 @@
           <div class="info">
             <div class="info-header">
               <h3 class="movie-title" (click)="onMovieClick(item.movie.id)">
-                {{ item.movie.title }}
+                {{ item.movie.title | translate}}
               </h3>
               <span class="score-badge" [attr.title]="'recommendationFeed.score.title' | translate">
                 {{ item.score | number: '1.0-2' }}
               </span>
             </div>
 
-            <p class="reason">{{ item.reason }}</p>
+            <p class="reason">{{ item.reason | translate}}</p>
           </div>
         </article>
       </div>
